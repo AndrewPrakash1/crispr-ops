@@ -8,6 +8,8 @@
 
 Research use only. Not a diagnosis. Personal genomes are refused.
 
+![Architecture](./docs/architecture.svg)
+
 ---
 
 ## What this project does
