@@ -1,5 +1,0 @@
-[console_scripts]
-popoff = popoff.cli:main
-
-[nat.plugins]
-popoff = popoff.nat_register
