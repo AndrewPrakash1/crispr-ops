@@ -1,0 +1,5 @@
+workflow:
+  _type: popoff_audit
+  genome_fasta: data/genome/chr11.fa
+  population: sas
+  gene: HBB

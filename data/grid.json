@@ -1,0 +1,2607 @@
+[
+  {
+    "gene": "HBB",
+    "population": "sas",
+    "run_id": "e2ca3af6-949f-496c-b3e7-58f733909c3b",
+    "record": {
+      "refused": false,
+      "lead": "A South Asian variant at AF 0.25 overlaps chr11:13061395, and the CFD score does not move. The substitution is the N of the PAM. CFD multiplies mismatch weights and the last two PAM bases, so this base does not move the score.",
+      "gene": "HBB",
+      "population": "sas",
+      "population_name": "South Asian",
+      "threshold": 0.2,
+      "common_af": 0.05,
+      "guides": [
+        {
+          "id": "HBB-HTY3",
+          "spacer": "GTAACGGCAGACTTCTCCTC",
+          "note": "Published HBB exon-1 spacer against the reference allele. GRCh38 hit is chr11:5226984 with PAM AGG.",
+          "reference_verdict": "CLEAR",
+          "population_verdict": "CLEAR",
+          "flipped": false,
+          "escalated": false,
+          "n_sites": 2
+        },
+        {
+          "id": "HBB-EX1-A",
+          "spacer": "CTTGCCCCACAGGGCAGTAA",
+          "note": "Plus-strand NGG site in HBB exon 1 on GRCh38 (PAM CGG). Locus-derived candidate.",
+          "reference_verdict": "FLAGGED",
+          "population_verdict": "FLAGGED",
+          "flipped": false,
+          "escalated": false,
+          "n_sites": 4
+        },
+        {
+          "id": "HBB-PROM",
+          "spacer": "AGGGCTGGGCATAAAAGTCA",
+          "note": "Minus-strand NGG site at the HBB promoter on GRCh38 (window chr11:5227090, PAM GGG). Locus-derived candidate.",
+          "reference_verdict": "FLAGGED",
+          "population_verdict": "FLAGGED",
+          "flipped": false,
+          "escalated": false,
+          "n_sites": 13
+        }
+      ],
+      "table": [
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 13061375,
+          "strand": "+",
+          "pam_class": "NGG",
+          "mm_ref": 4,
+          "mm_alt": 4,
+          "cfd_ref": 0.039097744370676694,
+          "cfd_alt": 0.039097744370676694,
+          "delta": 0.0,
+          "af": 0.24719567926879935,
+          "variant": "C>T",
+          "variant_pos": 13061395,
+          "same_mismatch_count": true,
+          "above_ref": false,
+          "above_alt": false,
+          "reading": "The substitution is the N of the PAM. CFD multiplies mismatch weights and the last two PAM bases, so this base does not move the score.",
+          "ref_window": "AGTGATGGGCATCAGAGTCACGG",
+          "alt_window": "AGTGATGGGCATCAGAGTCATGG",
+          "pairs": [
+            {
+              "position": 3,
+              "guide": "G",
+              "ref_base": "T",
+              "alt_base": "T",
+              "ref_weight": 0.5,
+              "alt_weight": 0.5
+            },
+            {
+              "position": 5,
+              "guide": "C",
+              "ref_base": "A",
+              "alt_base": "A",
+              "ref_weight": 0.571428571,
+              "alt_weight": 0.571428571
+            },
+            {
+              "position": 13,
+              "guide": "A",
+              "ref_base": "C",
+              "alt_base": "C",
+              "ref_weight": 0.21052631600000002,
+              "alt_weight": 0.21052631600000002
+            },
+            {
+              "position": 15,
+              "guide": "A",
+              "ref_base": "G",
+              "alt_base": "G",
+              "ref_weight": 0.65,
+              "alt_weight": 0.65
+            }
+          ],
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          }
+        }
+      ],
+      "same_mismatch": [],
+      "n_off": 19,
+      "n_same": 0,
+      "n_above": 0,
+      "environment": {
+        "python": "3.11.5",
+        "platform": "macOS-26.0.1-arm64-arm-64bit",
+        "threads": 8,
+        "genome": "data/genome/chr11.fa",
+        "genome_sha256": "5a45b92f2d9cbc494214203ea2c1b334c0b43dcacea3faf5909b86ccda1a57dd",
+        "genome_sha256_12": "5a45b92f2d9c",
+        "network_gnomad": true,
+        "nvidia_api_key": false,
+        "nebius_api_key": false,
+        "eligible_provider": null,
+        "crisprme_bin": null
+      },
+      "limitations": [
+        "The loaded reference is data/genome/chr11.fa. Sites outside that FASTA are not in this run.",
+        "Substitutions only. Bulges and indels are out of scope.",
+        "The primary haplotype is the single highest-AF SNV. gnomAD does not phase sites inside the window.",
+        "The cross-check is an in-repo second enumerator unless CRISPRME_BIN points at an external binary.",
+        "NAG and NGA are searched only after a guide's NGG verdict flips.",
+        "\u03c4 = 0.2 is a registered method cutoff, not a measured cutting rate.",
+        "The orchestrator model runs only when NEBIUS_API_KEY+NEBIUS_BASE_URL or NVIDIA_API_KEY is set. Without an eligible key the model is not called.",
+        "No GUIDE-seq correlation is reported unless a real data/guideseq.tsv is loaded.",
+        "CRISPRme+ is not called unless CRISPRME_BIN is set. The second checker is in-repo."
+      ],
+      "qualifier": "Research-use only. This is an audit of how off-target scores behave under population variation. It is not a clinical screen, not a diagnosis, and it does not accept personal genomes. A CFD change below the registered threshold of 0.2 is a statement about the scoring method, not a statement that a site is safe or unsafe. Evo 2 likelihood is a sequence-context prior, not a cutting probability.",
+      "record": {
+        "integers": [
+          19,
+          0,
+          0,
+          1,
+          3,
+          4
+        ],
+        "floats": [
+          0.2,
+          0.05,
+          0.0391,
+          0.0391,
+          0.2472
+        ]
+      },
+      "sites": [
+        {
+          "guide_id": "HBB-HTY3",
+          "chrom": "chr11",
+          "pos": 5234396,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "TTGACAGCAGTCTTCTCCTCAGG",
+          "on_target": false,
+          "cfd_ref": 0.18803418818803422,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "TTGACAGCAGTCTTCTCCTCAGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.611111111
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "ref": {
+              "available": false,
+              "reason": "NEBIUS_API_KEY and NVIDIA_API_KEY are both unset, so the Evo 2 NIM was not called.",
+              "endpoint": "https://health.api.nvidia.com/v1/biology/arc/evo2-7b/forward",
+              "window_length": 256
+            },
+            "alt": {
+              "available": false,
+              "reason": "no alternate haplotype"
+            }
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-HTY3",
+          "chrom": "chr11",
+          "pos": 59369899,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "CTAACAGCAGACCTCTCCACTGG",
+          "on_target": false,
+          "cfd_ref": 0.16111707846401724,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "CTAACAGCAGACCTCTCCACTGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.5639097740601505
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "ref": {
+              "available": false,
+              "reason": "NEBIUS_API_KEY and NVIDIA_API_KEY are both unset, so the Evo 2 NIM was not called.",
+              "endpoint": "https://health.api.nvidia.com/v1/biology/arc/evo2-7b/forward",
+              "window_length": 256
+            },
+            "alt": {
+              "available": false,
+              "reason": "no alternate haplotype"
+            }
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-EX1-A",
+          "chrom": "chr11",
+          "pos": 5269837,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "CTTGCTCCACAGGCTAGTGACGG",
+          "on_target": false,
+          "cfd_ref": 0.009948979656122448,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "CTTGCTCCACAGGCTAGTGACGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.14923469409566328
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-EX1-A",
+          "chrom": "chr11",
+          "pos": 65628972,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "CATGCCCAGCAGGGCAGGAAGGG",
+          "on_target": false,
+          "cfd_ref": 0.1222222221388889,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "CATGCCCAGCAGGGCAGGAAGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.3666666667833334
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-EX1-A",
+          "chrom": "chr11",
+          "pos": 74719074,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "CTTATCTCACAGGGCAGTTAGGG",
+          "on_target": false,
+          "cfd_ref": 0.25056818146022725,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "CTTATCTCACAGGGCAGTTAGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.465340908825
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-EX1-A",
+          "chrom": "chr11",
+          "pos": 129972074,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "CTTGCCGCCCCGGGCAGTGAGGG",
+          "on_target": false,
+          "cfd_ref": 0.04033613439831933,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "CTTGCCGCCCCGGGCAGTGAGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.10756302506218487
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 10403501,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGGGCTAGGCAGAGAATTCAGGG",
+          "on_target": false,
+          "cfd_ref": 0.058333333375000004,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGGGCTAGGCAGAGAATTCAGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.23333333350000002
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 13061375,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGTGATGGGCATCAGAGTCACGG",
+          "on_target": false,
+          "cfd_ref": 0.039097744370676694,
+          "cfd_alt": 0.039097744370676694,
+          "mm_ref": 4,
+          "mm_alt": 4,
+          "ref_window": "AGTGATGGGCATCAGAGTCACGG",
+          "alt_window": "AGTGATGGGCATCAGAGTCATGG",
+          "envelope": [
+            0.0,
+            0.185714285575
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": [
+            {
+              "position": 3,
+              "guide": "G",
+              "ref_base": "T",
+              "alt_base": "T",
+              "ref_weight": 0.5,
+              "alt_weight": 0.5
+            },
+            {
+              "position": 5,
+              "guide": "C",
+              "ref_base": "A",
+              "alt_base": "A",
+              "ref_weight": 0.571428571,
+              "alt_weight": 0.571428571
+            },
+            {
+              "position": 13,
+              "guide": "A",
+              "ref_base": "C",
+              "alt_base": "C",
+              "ref_weight": 0.21052631600000002,
+              "alt_weight": 0.21052631600000002
+            },
+            {
+              "position": 15,
+              "guide": "A",
+              "ref_base": "G",
+              "alt_base": "G",
+              "ref_weight": 0.65,
+              "alt_weight": 0.65
+            }
+          ],
+          "applied_variant": {
+            "chrom": "chr11",
+            "pos": 13061395,
+            "ref": "C",
+            "alt": "T",
+            "af": 0.24719567926879935,
+            "ac": 1190,
+            "an": 4814,
+            "source": "genome",
+            "variant_id": "11-13061395-C-T"
+          },
+          "common_variants": [
+            {
+              "chrom": "chr11",
+              "pos": 13061395,
+              "ref": "C",
+              "alt": "T",
+              "af": 0.24719567926879935,
+              "ac": 1190,
+              "an": 4814,
+              "source": "genome",
+              "variant_id": "11-13061395-C-T"
+            }
+          ]
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 16844062,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "ATGGCTGGGCACAAAAGGCTGGG",
+          "on_target": false,
+          "cfd_ref": 0.12057416248325356,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "ATGGCTGGGCACAAAAGGCTGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.3617224878114832
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 17523160,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "GGGGCTGGGGATGAAGGTCAAGG",
+          "on_target": false,
+          "cfd_ref": 0.048773690010683754,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "GGGGCTGGGGATGAAGGTCAAGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.2536231884613526
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 22596828,
+          "strand": "+",
+          "mismatches": 3,
+          "pam_class": "NGG",
+          "site23": "ACGGCTGGGTATAAAATTCATGG",
+          "on_target": false,
+          "cfd_ref": 0.1628959276006787,
+          "cfd_alt": null,
+          "mm_ref": 3,
+          "mm_alt": null,
+          "ref_window": "ACGGCTGGGTATAAAATTCATGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.6515837104027148
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "ref": {
+              "available": false,
+              "reason": "NEBIUS_API_KEY and NVIDIA_API_KEY are both unset, so the Evo 2 NIM was not called.",
+              "endpoint": "https://health.api.nvidia.com/v1/biology/arc/evo2-7b/forward",
+              "window_length": 256
+            },
+            "alt": {
+              "available": false,
+              "reason": "no alternate haplotype"
+            }
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 32244173,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGTCCTGGGCATAAAAGCCTGGG",
+          "on_target": false,
+          "cfd_ref": 0.06806722699663866,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGTCCTGGGCATAAAAGCCTGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.15882352949999998
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 84045168,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGGGCTGGTTATAAAAATAATGG",
+          "on_target": false,
+          "cfd_ref": 0.20078431381691875,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGGGCTGGTTATAAAAATAATGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.46849673177098033
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "ref": {
+              "available": false,
+              "reason": "NEBIUS_API_KEY and NVIDIA_API_KEY are both unset, so the Evo 2 NIM was not called.",
+              "endpoint": "https://health.api.nvidia.com/v1/biology/arc/evo2-7b/forward",
+              "window_length": 256
+            },
+            "alt": {
+              "available": false,
+              "reason": "no alternate haplotype"
+            }
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 94396562,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGGGATGGGTGTCAAAGTCAAGG",
+          "on_target": false,
+          "cfd_ref": 0.07359575414170721,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGGGATGGGTGTCAAAGTCAAGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.3495798318235294
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 112253324,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "TGGGCTGGGCACAAAAGGGATGG",
+          "on_target": false,
+          "cfd_ref": 0.03947368416885965,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "TGGGCTGGGCACAAAAGGGATGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.3157894733508772
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 120904734,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGGGCTGTGAATGAAAGGCATGG",
+          "on_target": false,
+          "cfd_ref": 0.1177536231080918,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGGGCTGTGAATGAAAGGCATGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.3532608696775363
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 124676531,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGGGCAGGGCAAAAAAAGCAAGG",
+          "on_target": false,
+          "cfd_ref": 0.21570370349392595,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGGGCAGGGCAAAAAAAGCAAGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.647111111128889
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "ref": {
+              "available": false,
+              "reason": "NEBIUS_API_KEY and NVIDIA_API_KEY are both unset, so the Evo 2 NIM was not called.",
+              "endpoint": "https://health.api.nvidia.com/v1/biology/arc/evo2-7b/forward",
+              "window_length": 256
+            },
+            "alt": {
+              "available": false,
+              "reason": "no alternate haplotype"
+            }
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 126436458,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGGGCAGGGCACAGAAGCCAGGG",
+          "on_target": false,
+          "cfd_ref": 0.16421052665132832,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGGGCAGGGCACAGAAGCCAGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.3831578951366082
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "ref": {
+              "available": false,
+              "reason": "NEBIUS_API_KEY and NVIDIA_API_KEY are both unset, so the Evo 2 NIM was not called.",
+              "endpoint": "https://health.api.nvidia.com/v1/biology/arc/evo2-7b/forward",
+              "window_length": 256
+            },
+            "alt": {
+              "available": false,
+              "reason": "no alternate haplotype"
+            }
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 132593101,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AAGTCTGGGCAAGAAAGTCAGGG",
+          "on_target": false,
+          "cfd_ref": 0.16053511717750074,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AAGTCTGGGCAAGAAAGTCAGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.4414715717966555
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Over the Evo 2 budget of 4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        }
+      ],
+      "citations": [
+        {
+          "claim": "0 off-target sites keep the same mismatch count and change CFD. 0 of them reach 0.2 on either haplotype.",
+          "accepted": true,
+          "reason": "Numbers match the run record and the wording stays inside the registered scope.",
+          "sources": [
+            "doench2016"
+          ]
+        },
+        {
+          "claim": "19 off-target sites were enumerated. 1 carries a common variant at allele frequency 0.05 or higher. Frequencies are gnomAD v4 South Asian calls.",
+          "accepted": true,
+          "reason": "Numbers match the run record and the wording stays inside the registered scope.",
+          "sources": [
+            "gnomad-v4-api"
+          ]
+        },
+        {
+          "claim": "CFD is the Doench 2016 product of mismatch weights and a PAM weight. Position 1 is PAM-distal.",
+          "accepted": true,
+          "reason": "Numbers match the run record and the wording stays inside the registered scope.",
+          "sources": [
+            "doench2016"
+          ]
+        },
+        {
+          "claim": "Evo 2, when a score is returned, is a sequence prior. A disagreement with the CFD delta is not a cutting probability.",
+          "accepted": true,
+          "reason": "Numbers match the run record and the wording stays inside the registered scope.",
+          "sources": [
+            "doench2016"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "gene": "HBB",
+    "population": "afr",
+    "run_id": "038a49f8-d101-463b-980f-c5b5c83cc864",
+    "record": {
+      "refused": false,
+      "lead": "The highest overlapping African / African American frequency in this run is AF 0.056 at chr11:17523178. It is not a majority allele.",
+      "gene": "HBB",
+      "population": "afr",
+      "population_name": "African / African American",
+      "threshold": 0.2,
+      "common_af": 0.05,
+      "guides": [
+        {
+          "id": "HBB-HTY3",
+          "spacer": "GTAACGGCAGACTTCTCCTC",
+          "note": "Published HBB exon-1 spacer against the reference allele. GRCh38 hit is chr11:5226984 with PAM AGG.",
+          "reference_verdict": "CLEAR",
+          "population_verdict": "CLEAR",
+          "flipped": false,
+          "escalated": false,
+          "n_sites": 2
+        },
+        {
+          "id": "HBB-EX1-A",
+          "spacer": "CTTGCCCCACAGGGCAGTAA",
+          "note": "Plus-strand NGG site in HBB exon 1 on GRCh38 (PAM CGG). Locus-derived candidate.",
+          "reference_verdict": "FLAGGED",
+          "population_verdict": "FLAGGED",
+          "flipped": false,
+          "escalated": false,
+          "n_sites": 4
+        },
+        {
+          "id": "HBB-PROM",
+          "spacer": "AGGGCTGGGCATAAAAGTCA",
+          "note": "Minus-strand NGG site at the HBB promoter on GRCh38 (window chr11:5227090, PAM GGG). Locus-derived candidate.",
+          "reference_verdict": "FLAGGED",
+          "population_verdict": "FLAGGED",
+          "flipped": false,
+          "escalated": false,
+          "n_sites": 13
+        }
+      ],
+      "table": [
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 13061375,
+          "strand": "+",
+          "pam_class": "NGG",
+          "mm_ref": 4,
+          "mm_alt": 4,
+          "cfd_ref": 0.039097744370676694,
+          "cfd_alt": 0.039097744370676694,
+          "delta": 0.0,
+          "af": 0.05209035738368173,
+          "variant": "C>T",
+          "variant_pos": 13061395,
+          "same_mismatch_count": true,
+          "above_ref": false,
+          "above_alt": false,
+          "reading": "The substitution is the N of the PAM. CFD multiplies mismatch weights and the last two PAM bases, so this base does not move the score.",
+          "ref_window": "AGTGATGGGCATCAGAGTCACGG",
+          "alt_window": "AGTGATGGGCATCAGAGTCATGG",
+          "pairs": [
+            {
+              "position": 3,
+              "guide": "G",
+              "ref_base": "T",
+              "alt_base": "T",
+              "ref_weight": 0.5,
+              "alt_weight": 0.5
+            },
+            {
+              "position": 5,
+              "guide": "C",
+              "ref_base": "A",
+              "alt_base": "A",
+              "ref_weight": 0.571428571,
+              "alt_weight": 0.571428571
+            },
+            {
+              "position": 13,
+              "guide": "A",
+              "ref_base": "C",
+              "alt_base": "C",
+              "ref_weight": 0.21052631600000002,
+              "alt_weight": 0.21052631600000002
+            },
+            {
+              "position": 15,
+              "guide": "A",
+              "ref_base": "G",
+              "alt_base": "G",
+              "ref_weight": 0.65,
+              "alt_weight": 0.65
+            }
+          ],
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          }
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 17523160,
+          "strand": "+",
+          "pam_class": "NGG",
+          "mm_ref": 4,
+          "mm_alt": 5,
+          "cfd_ref": 0.048773690010683754,
+          "cfd_alt": 0.022510933873595745,
+          "delta": -0.02626275613708801,
+          "af": 0.05630955818654346,
+          "variant": "C>T",
+          "variant_pos": 17523178,
+          "same_mismatch_count": false,
+          "above_ref": false,
+          "above_alt": false,
+          "reading": "CFD moved and the mismatch count changed. Both sides are on the same side of 0.2.",
+          "ref_window": "GGGGCTGGGGATGAAGGTCAAGG",
+          "alt_window": "GGGGCTGGGGATGAAGGTTAAGG",
+          "pairs": [
+            {
+              "position": 1,
+              "guide": "A",
+              "ref_base": "G",
+              "alt_base": "G",
+              "ref_weight": 1.0,
+              "alt_weight": 1.0
+            },
+            {
+              "position": 10,
+              "guide": "C",
+              "ref_base": "G",
+              "alt_base": "G",
+              "ref_weight": 0.38888888899999996,
+              "alt_weight": 0.38888888899999996
+            },
+            {
+              "position": 13,
+              "guide": "A",
+              "ref_base": "G",
+              "alt_base": "G",
+              "ref_weight": 0.6521739129999999,
+              "alt_weight": 0.6521739129999999
+            },
+            {
+              "position": 16,
+              "guide": "A",
+              "ref_base": "G",
+              "alt_base": "G",
+              "ref_weight": 0.192307692,
+              "alt_weight": 0.192307692
+            },
+            {
+              "position": 19,
+              "guide": "C",
+              "ref_base": "C",
+              "alt_base": "T",
+              "ref_weight": 1.0,
+              "alt_weight": 0.46153846200000004
+            }
+          ],
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          }
+        }
+      ],
+      "same_mismatch": [],
+      "n_off": 19,
+      "n_same": 0,
+      "n_above": 0,
+      "environment": {
+        "python": "3.11.5",
+        "platform": "macOS-26.0.1-arm64-arm-64bit",
+        "threads": 8,
+        "genome": "data/genome/chr11.fa",
+        "genome_sha256": "5a45b92f2d9cbc494214203ea2c1b334c0b43dcacea3faf5909b86ccda1a57dd",
+        "genome_sha256_12": "5a45b92f2d9c",
+        "network_gnomad": true,
+        "nvidia_api_key": false,
+        "nebius_api_key": false,
+        "eligible_provider": null,
+        "crisprme_bin": null
+      },
+      "limitations": [
+        "The loaded reference is data/genome/chr11.fa. Sites outside that FASTA are not in this run.",
+        "Substitutions only. Bulges and indels are out of scope.",
+        "The primary haplotype is the single highest-AF SNV. gnomAD does not phase sites inside the window.",
+        "The cross-check is an in-repo second enumerator unless CRISPRME_BIN points at an external binary.",
+        "NAG and NGA are searched only after a guide's NGG verdict flips.",
+        "\u03c4 = 0.2 is a registered method cutoff, not a measured cutting rate.",
+        "The orchestrator model runs only when NEBIUS_API_KEY+NEBIUS_BASE_URL or NVIDIA_API_KEY is set. Without an eligible key the model is not called.",
+        "No GUIDE-seq correlation is reported unless a real data/guideseq.tsv is loaded.",
+        "CRISPRme+ is not called unless CRISPRME_BIN is set. The second checker is in-repo."
+      ],
+      "qualifier": "Research-use only. This is an audit of how off-target scores behave under population variation. It is not a clinical screen, not a diagnosis, and it does not accept personal genomes. A CFD change below the registered threshold of 0.2 is a statement about the scoring method, not a statement that a site is safe or unsafe. Evo 2 likelihood is a sequence-context prior, not a cutting probability.",
+      "record": {
+        "integers": [
+          19,
+          0,
+          0,
+          2,
+          3,
+          4
+        ],
+        "floats": [
+          0.2,
+          0.05,
+          0.0391,
+          0.0488,
+          0.0391,
+          0.0225,
+          0.0521,
+          0.0563
+        ]
+      },
+      "sites": [
+        {
+          "guide_id": "HBB-HTY3",
+          "chrom": "chr11",
+          "pos": 5234396,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "TTGACAGCAGTCTTCTCCTCAGG",
+          "on_target": false,
+          "cfd_ref": 0.18803418818803422,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "TTGACAGCAGTCTTCTCCTCAGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.611111111
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "ref": {
+              "available": false,
+              "reason": "NEBIUS_API_KEY and NVIDIA_API_KEY are both unset, so the Evo 2 NIM was not called.",
+              "endpoint": "https://health.api.nvidia.com/v1/biology/arc/evo2-7b/forward",
+              "window_length": 256
+            },
+            "alt": {
+              "available": false,
+              "reason": "no alternate haplotype"
+            }
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-HTY3",
+          "chrom": "chr11",
+          "pos": 59369899,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "CTAACAGCAGACCTCTCCACTGG",
+          "on_target": false,
+          "cfd_ref": 0.16111707846401724,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "CTAACAGCAGACCTCTCCACTGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.5639097740601505
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "ref": {
+              "available": false,
+              "reason": "NEBIUS_API_KEY and NVIDIA_API_KEY are both unset, so the Evo 2 NIM was not called.",
+              "endpoint": "https://health.api.nvidia.com/v1/biology/arc/evo2-7b/forward",
+              "window_length": 256
+            },
+            "alt": {
+              "available": false,
+              "reason": "no alternate haplotype"
+            }
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-EX1-A",
+          "chrom": "chr11",
+          "pos": 5269837,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "CTTGCTCCACAGGCTAGTGACGG",
+          "on_target": false,
+          "cfd_ref": 0.009948979656122448,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "CTTGCTCCACAGGCTAGTGACGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.14923469409566328
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-EX1-A",
+          "chrom": "chr11",
+          "pos": 65628972,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "CATGCCCAGCAGGGCAGGAAGGG",
+          "on_target": false,
+          "cfd_ref": 0.1222222221388889,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "CATGCCCAGCAGGGCAGGAAGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.3666666667833334
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-EX1-A",
+          "chrom": "chr11",
+          "pos": 74719074,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "CTTATCTCACAGGGCAGTTAGGG",
+          "on_target": false,
+          "cfd_ref": 0.25056818146022725,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "CTTATCTCACAGGGCAGTTAGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.465340908825
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-EX1-A",
+          "chrom": "chr11",
+          "pos": 129972074,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "CTTGCCGCCCCGGGCAGTGAGGG",
+          "on_target": false,
+          "cfd_ref": 0.04033613439831933,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "CTTGCCGCCCCGGGCAGTGAGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.10756302506218487
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 10403501,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGGGCTAGGCAGAGAATTCAGGG",
+          "on_target": false,
+          "cfd_ref": 0.058333333375000004,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGGGCTAGGCAGAGAATTCAGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.23333333350000002
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 13061375,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGTGATGGGCATCAGAGTCACGG",
+          "on_target": false,
+          "cfd_ref": 0.039097744370676694,
+          "cfd_alt": 0.039097744370676694,
+          "mm_ref": 4,
+          "mm_alt": 4,
+          "ref_window": "AGTGATGGGCATCAGAGTCACGG",
+          "alt_window": "AGTGATGGGCATCAGAGTCATGG",
+          "envelope": [
+            0.0,
+            0.185714285575
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": [
+            {
+              "position": 3,
+              "guide": "G",
+              "ref_base": "T",
+              "alt_base": "T",
+              "ref_weight": 0.5,
+              "alt_weight": 0.5
+            },
+            {
+              "position": 5,
+              "guide": "C",
+              "ref_base": "A",
+              "alt_base": "A",
+              "ref_weight": 0.571428571,
+              "alt_weight": 0.571428571
+            },
+            {
+              "position": 13,
+              "guide": "A",
+              "ref_base": "C",
+              "alt_base": "C",
+              "ref_weight": 0.21052631600000002,
+              "alt_weight": 0.21052631600000002
+            },
+            {
+              "position": 15,
+              "guide": "A",
+              "ref_base": "G",
+              "alt_base": "G",
+              "ref_weight": 0.65,
+              "alt_weight": 0.65
+            }
+          ],
+          "applied_variant": {
+            "chrom": "chr11",
+            "pos": 13061395,
+            "ref": "C",
+            "alt": "T",
+            "af": 0.05209035738368173,
+            "ac": 2163,
+            "an": 41524,
+            "source": "genome",
+            "variant_id": "11-13061395-C-T"
+          },
+          "common_variants": [
+            {
+              "chrom": "chr11",
+              "pos": 13061395,
+              "ref": "C",
+              "alt": "T",
+              "af": 0.05209035738368173,
+              "ac": 2163,
+              "an": 41524,
+              "source": "genome",
+              "variant_id": "11-13061395-C-T"
+            }
+          ]
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 16844062,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "ATGGCTGGGCACAAAAGGCTGGG",
+          "on_target": false,
+          "cfd_ref": 0.12057416248325356,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "ATGGCTGGGCACAAAAGGCTGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.3617224878114832
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 17523160,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "GGGGCTGGGGATGAAGGTCAAGG",
+          "on_target": false,
+          "cfd_ref": 0.048773690010683754,
+          "cfd_alt": 0.022510933873595745,
+          "mm_ref": 4,
+          "mm_alt": 5,
+          "ref_window": "GGGGCTGGGGATGAAGGTCAAGG",
+          "alt_window": "GGGGCTGGGGATGAAGGTTAAGG",
+          "envelope": [
+            0.0,
+            0.2536231884613526
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": [
+            {
+              "position": 1,
+              "guide": "A",
+              "ref_base": "G",
+              "alt_base": "G",
+              "ref_weight": 1.0,
+              "alt_weight": 1.0
+            },
+            {
+              "position": 10,
+              "guide": "C",
+              "ref_base": "G",
+              "alt_base": "G",
+              "ref_weight": 0.38888888899999996,
+              "alt_weight": 0.38888888899999996
+            },
+            {
+              "position": 13,
+              "guide": "A",
+              "ref_base": "G",
+              "alt_base": "G",
+              "ref_weight": 0.6521739129999999,
+              "alt_weight": 0.6521739129999999
+            },
+            {
+              "position": 16,
+              "guide": "A",
+              "ref_base": "G",
+              "alt_base": "G",
+              "ref_weight": 0.192307692,
+              "alt_weight": 0.192307692
+            },
+            {
+              "position": 19,
+              "guide": "C",
+              "ref_base": "C",
+              "alt_base": "T",
+              "ref_weight": 1.0,
+              "alt_weight": 0.46153846200000004
+            }
+          ],
+          "applied_variant": {
+            "chrom": "chr11",
+            "pos": 17523178,
+            "ref": "C",
+            "alt": "T",
+            "af": 0.05630955818654346,
+            "ac": 2340,
+            "an": 41556,
+            "source": "genome",
+            "variant_id": "11-17523178-C-T"
+          },
+          "common_variants": [
+            {
+              "chrom": "chr11",
+              "pos": 17523178,
+              "ref": "C",
+              "alt": "T",
+              "af": 0.05630955818654346,
+              "ac": 2340,
+              "an": 41556,
+              "source": "genome",
+              "variant_id": "11-17523178-C-T"
+            }
+          ]
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 22596828,
+          "strand": "+",
+          "mismatches": 3,
+          "pam_class": "NGG",
+          "site23": "ACGGCTGGGTATAAAATTCATGG",
+          "on_target": false,
+          "cfd_ref": 0.1628959276006787,
+          "cfd_alt": null,
+          "mm_ref": 3,
+          "mm_alt": null,
+          "ref_window": "ACGGCTGGGTATAAAATTCATGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.6515837104027148
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "ref": {
+              "available": false,
+              "reason": "NEBIUS_API_KEY and NVIDIA_API_KEY are both unset, so the Evo 2 NIM was not called.",
+              "endpoint": "https://health.api.nvidia.com/v1/biology/arc/evo2-7b/forward",
+              "window_length": 256
+            },
+            "alt": {
+              "available": false,
+              "reason": "no alternate haplotype"
+            }
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 32244173,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGTCCTGGGCATAAAAGCCTGGG",
+          "on_target": false,
+          "cfd_ref": 0.06806722699663866,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGTCCTGGGCATAAAAGCCTGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.15882352949999998
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 84045168,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGGGCTGGTTATAAAAATAATGG",
+          "on_target": false,
+          "cfd_ref": 0.20078431381691875,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGGGCTGGTTATAAAAATAATGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.46849673177098033
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "ref": {
+              "available": false,
+              "reason": "NEBIUS_API_KEY and NVIDIA_API_KEY are both unset, so the Evo 2 NIM was not called.",
+              "endpoint": "https://health.api.nvidia.com/v1/biology/arc/evo2-7b/forward",
+              "window_length": 256
+            },
+            "alt": {
+              "available": false,
+              "reason": "no alternate haplotype"
+            }
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 94396562,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGGGATGGGTGTCAAAGTCAAGG",
+          "on_target": false,
+          "cfd_ref": 0.07359575414170721,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGGGATGGGTGTCAAAGTCAAGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.3495798318235294
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 112253324,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "TGGGCTGGGCACAAAAGGGATGG",
+          "on_target": false,
+          "cfd_ref": 0.03947368416885965,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "TGGGCTGGGCACAAAAGGGATGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.3157894733508772
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 120904734,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGGGCTGTGAATGAAAGGCATGG",
+          "on_target": false,
+          "cfd_ref": 0.1177536231080918,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGGGCTGTGAATGAAAGGCATGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.3532608696775363
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 124676531,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGGGCAGGGCAAAAAAAGCAAGG",
+          "on_target": false,
+          "cfd_ref": 0.21570370349392595,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGGGCAGGGCAAAAAAAGCAAGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.647111111128889
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "ref": {
+              "available": false,
+              "reason": "NEBIUS_API_KEY and NVIDIA_API_KEY are both unset, so the Evo 2 NIM was not called.",
+              "endpoint": "https://health.api.nvidia.com/v1/biology/arc/evo2-7b/forward",
+              "window_length": 256
+            },
+            "alt": {
+              "available": false,
+              "reason": "no alternate haplotype"
+            }
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 126436458,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGGGCAGGGCACAGAAGCCAGGG",
+          "on_target": false,
+          "cfd_ref": 0.16421052665132832,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGGGCAGGGCACAGAAGCCAGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.3831578951366082
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "ref": {
+              "available": false,
+              "reason": "NEBIUS_API_KEY and NVIDIA_API_KEY are both unset, so the Evo 2 NIM was not called.",
+              "endpoint": "https://health.api.nvidia.com/v1/biology/arc/evo2-7b/forward",
+              "window_length": 256
+            },
+            "alt": {
+              "available": false,
+              "reason": "no alternate haplotype"
+            }
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 132593101,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AAGTCTGGGCAAGAAAGTCAGGG",
+          "on_target": false,
+          "cfd_ref": 0.16053511717750074,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AAGTCTGGGCAAGAAAGTCAGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.4414715717966555
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Over the Evo 2 budget of 4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        }
+      ],
+      "citations": [
+        {
+          "claim": "0 off-target sites keep the same mismatch count and change CFD. 0 of them reach 0.2 on either haplotype.",
+          "accepted": true,
+          "reason": "Numbers match the run record and the wording stays inside the registered scope.",
+          "sources": [
+            "doench2016"
+          ]
+        },
+        {
+          "claim": "19 off-target sites were enumerated. 2 carry a common variant at allele frequency 0.05 or higher. Frequencies are gnomAD v4 African / African American calls.",
+          "accepted": true,
+          "reason": "Numbers match the run record and the wording stays inside the registered scope.",
+          "sources": [
+            "gnomad-v4-api"
+          ]
+        },
+        {
+          "claim": "CFD is the Doench 2016 product of mismatch weights and a PAM weight. Position 1 is PAM-distal.",
+          "accepted": true,
+          "reason": "Numbers match the run record and the wording stays inside the registered scope.",
+          "sources": [
+            "doench2016"
+          ]
+        },
+        {
+          "claim": "Evo 2, when a score is returned, is a sequence prior. A disagreement with the CFD delta is not a cutting probability.",
+          "accepted": true,
+          "reason": "Numbers match the run record and the wording stays inside the registered scope.",
+          "sources": [
+            "doench2016"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "gene": "HBB",
+    "population": "nfe",
+    "run_id": "56fda165-ab39-4b7c-aed2-2986ef989fd1",
+    "record": {
+      "refused": false,
+      "lead": "A Non-Finnish European variant at AF 0.05 overlaps chr11:13061395, and the CFD score does not move. The substitution is the N of the PAM. CFD multiplies mismatch weights and the last two PAM bases, so this base does not move the score.",
+      "gene": "HBB",
+      "population": "nfe",
+      "population_name": "Non-Finnish European",
+      "threshold": 0.2,
+      "common_af": 0.05,
+      "guides": [
+        {
+          "id": "HBB-HTY3",
+          "spacer": "GTAACGGCAGACTTCTCCTC",
+          "note": "Published HBB exon-1 spacer against the reference allele. GRCh38 hit is chr11:5226984 with PAM AGG.",
+          "reference_verdict": "CLEAR",
+          "population_verdict": "CLEAR",
+          "flipped": false,
+          "escalated": false,
+          "n_sites": 2
+        },
+        {
+          "id": "HBB-EX1-A",
+          "spacer": "CTTGCCCCACAGGGCAGTAA",
+          "note": "Plus-strand NGG site in HBB exon 1 on GRCh38 (PAM CGG). Locus-derived candidate.",
+          "reference_verdict": "FLAGGED",
+          "population_verdict": "FLAGGED",
+          "flipped": false,
+          "escalated": false,
+          "n_sites": 4
+        },
+        {
+          "id": "HBB-PROM",
+          "spacer": "AGGGCTGGGCATAAAAGTCA",
+          "note": "Minus-strand NGG site at the HBB promoter on GRCh38 (window chr11:5227090, PAM GGG). Locus-derived candidate.",
+          "reference_verdict": "FLAGGED",
+          "population_verdict": "FLAGGED",
+          "flipped": false,
+          "escalated": false,
+          "n_sites": 13
+        }
+      ],
+      "table": [
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 13061375,
+          "strand": "+",
+          "pam_class": "NGG",
+          "mm_ref": 4,
+          "mm_alt": 4,
+          "cfd_ref": 0.039097744370676694,
+          "cfd_alt": 0.039097744370676694,
+          "delta": 0.0,
+          "af": 0.05086191680884862,
+          "variant": "C>T",
+          "variant_pos": 13061395,
+          "same_mismatch_count": true,
+          "above_ref": false,
+          "above_alt": false,
+          "reading": "The substitution is the N of the PAM. CFD multiplies mismatch weights and the last two PAM bases, so this base does not move the score.",
+          "ref_window": "AGTGATGGGCATCAGAGTCACGG",
+          "alt_window": "AGTGATGGGCATCAGAGTCATGG",
+          "pairs": [
+            {
+              "position": 3,
+              "guide": "G",
+              "ref_base": "T",
+              "alt_base": "T",
+              "ref_weight": 0.5,
+              "alt_weight": 0.5
+            },
+            {
+              "position": 5,
+              "guide": "C",
+              "ref_base": "A",
+              "alt_base": "A",
+              "ref_weight": 0.571428571,
+              "alt_weight": 0.571428571
+            },
+            {
+              "position": 13,
+              "guide": "A",
+              "ref_base": "C",
+              "alt_base": "C",
+              "ref_weight": 0.21052631600000002,
+              "alt_weight": 0.21052631600000002
+            },
+            {
+              "position": 15,
+              "guide": "A",
+              "ref_base": "G",
+              "alt_base": "G",
+              "ref_weight": 0.65,
+              "alt_weight": 0.65
+            }
+          ],
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          }
+        }
+      ],
+      "same_mismatch": [],
+      "n_off": 19,
+      "n_same": 0,
+      "n_above": 0,
+      "environment": {
+        "python": "3.11.5",
+        "platform": "macOS-26.0.1-arm64-arm-64bit",
+        "threads": 8,
+        "genome": "data/genome/chr11.fa",
+        "genome_sha256": "5a45b92f2d9cbc494214203ea2c1b334c0b43dcacea3faf5909b86ccda1a57dd",
+        "genome_sha256_12": "5a45b92f2d9c",
+        "network_gnomad": true,
+        "nvidia_api_key": false,
+        "nebius_api_key": false,
+        "eligible_provider": null,
+        "crisprme_bin": null
+      },
+      "limitations": [
+        "The loaded reference is data/genome/chr11.fa. Sites outside that FASTA are not in this run.",
+        "Substitutions only. Bulges and indels are out of scope.",
+        "The primary haplotype is the single highest-AF SNV. gnomAD does not phase sites inside the window.",
+        "The cross-check is an in-repo second enumerator unless CRISPRME_BIN points at an external binary.",
+        "NAG and NGA are searched only after a guide's NGG verdict flips.",
+        "\u03c4 = 0.2 is a registered method cutoff, not a measured cutting rate.",
+        "The orchestrator model runs only when NEBIUS_API_KEY+NEBIUS_BASE_URL or NVIDIA_API_KEY is set. Without an eligible key the model is not called.",
+        "No GUIDE-seq correlation is reported unless a real data/guideseq.tsv is loaded.",
+        "CRISPRme+ is not called unless CRISPRME_BIN is set. The second checker is in-repo."
+      ],
+      "qualifier": "Research-use only. This is an audit of how off-target scores behave under population variation. It is not a clinical screen, not a diagnosis, and it does not accept personal genomes. A CFD change below the registered threshold of 0.2 is a statement about the scoring method, not a statement that a site is safe or unsafe. Evo 2 likelihood is a sequence-context prior, not a cutting probability.",
+      "record": {
+        "integers": [
+          19,
+          0,
+          0,
+          1,
+          3,
+          4
+        ],
+        "floats": [
+          0.2,
+          0.05,
+          0.0391,
+          0.0391,
+          0.0509
+        ]
+      },
+      "sites": [
+        {
+          "guide_id": "HBB-HTY3",
+          "chrom": "chr11",
+          "pos": 5234396,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "TTGACAGCAGTCTTCTCCTCAGG",
+          "on_target": false,
+          "cfd_ref": 0.18803418818803422,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "TTGACAGCAGTCTTCTCCTCAGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.611111111
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "ref": {
+              "available": false,
+              "reason": "NEBIUS_API_KEY and NVIDIA_API_KEY are both unset, so the Evo 2 NIM was not called.",
+              "endpoint": "https://health.api.nvidia.com/v1/biology/arc/evo2-7b/forward",
+              "window_length": 256
+            },
+            "alt": {
+              "available": false,
+              "reason": "no alternate haplotype"
+            }
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-HTY3",
+          "chrom": "chr11",
+          "pos": 59369899,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "CTAACAGCAGACCTCTCCACTGG",
+          "on_target": false,
+          "cfd_ref": 0.16111707846401724,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "CTAACAGCAGACCTCTCCACTGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.5639097740601505
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "ref": {
+              "available": false,
+              "reason": "NEBIUS_API_KEY and NVIDIA_API_KEY are both unset, so the Evo 2 NIM was not called.",
+              "endpoint": "https://health.api.nvidia.com/v1/biology/arc/evo2-7b/forward",
+              "window_length": 256
+            },
+            "alt": {
+              "available": false,
+              "reason": "no alternate haplotype"
+            }
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-EX1-A",
+          "chrom": "chr11",
+          "pos": 5269837,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "CTTGCTCCACAGGCTAGTGACGG",
+          "on_target": false,
+          "cfd_ref": 0.009948979656122448,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "CTTGCTCCACAGGCTAGTGACGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.14923469409566328
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-EX1-A",
+          "chrom": "chr11",
+          "pos": 65628972,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "CATGCCCAGCAGGGCAGGAAGGG",
+          "on_target": false,
+          "cfd_ref": 0.1222222221388889,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "CATGCCCAGCAGGGCAGGAAGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.3666666667833334
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-EX1-A",
+          "chrom": "chr11",
+          "pos": 74719074,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "CTTATCTCACAGGGCAGTTAGGG",
+          "on_target": false,
+          "cfd_ref": 0.25056818146022725,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "CTTATCTCACAGGGCAGTTAGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.465340908825
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-EX1-A",
+          "chrom": "chr11",
+          "pos": 129972074,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "CTTGCCGCCCCGGGCAGTGAGGG",
+          "on_target": false,
+          "cfd_ref": 0.04033613439831933,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "CTTGCCGCCCCGGGCAGTGAGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.10756302506218487
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 10403501,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGGGCTAGGCAGAGAATTCAGGG",
+          "on_target": false,
+          "cfd_ref": 0.058333333375000004,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGGGCTAGGCAGAGAATTCAGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.23333333350000002
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 13061375,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGTGATGGGCATCAGAGTCACGG",
+          "on_target": false,
+          "cfd_ref": 0.039097744370676694,
+          "cfd_alt": 0.039097744370676694,
+          "mm_ref": 4,
+          "mm_alt": 4,
+          "ref_window": "AGTGATGGGCATCAGAGTCACGG",
+          "alt_window": "AGTGATGGGCATCAGAGTCATGG",
+          "envelope": [
+            0.0,
+            0.185714285575
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": [
+            {
+              "position": 3,
+              "guide": "G",
+              "ref_base": "T",
+              "alt_base": "T",
+              "ref_weight": 0.5,
+              "alt_weight": 0.5
+            },
+            {
+              "position": 5,
+              "guide": "C",
+              "ref_base": "A",
+              "alt_base": "A",
+              "ref_weight": 0.571428571,
+              "alt_weight": 0.571428571
+            },
+            {
+              "position": 13,
+              "guide": "A",
+              "ref_base": "C",
+              "alt_base": "C",
+              "ref_weight": 0.21052631600000002,
+              "alt_weight": 0.21052631600000002
+            },
+            {
+              "position": 15,
+              "guide": "A",
+              "ref_base": "G",
+              "alt_base": "G",
+              "ref_weight": 0.65,
+              "alt_weight": 0.65
+            }
+          ],
+          "applied_variant": {
+            "chrom": "chr11",
+            "pos": 13061395,
+            "ref": "C",
+            "alt": "T",
+            "af": 0.05086191680884862,
+            "ac": 3458,
+            "an": 67988,
+            "source": "genome",
+            "variant_id": "11-13061395-C-T"
+          },
+          "common_variants": [
+            {
+              "chrom": "chr11",
+              "pos": 13061395,
+              "ref": "C",
+              "alt": "T",
+              "af": 0.05086191680884862,
+              "ac": 3458,
+              "an": 67988,
+              "source": "genome",
+              "variant_id": "11-13061395-C-T"
+            }
+          ]
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 16844062,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "ATGGCTGGGCACAAAAGGCTGGG",
+          "on_target": false,
+          "cfd_ref": 0.12057416248325356,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "ATGGCTGGGCACAAAAGGCTGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.3617224878114832
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 17523160,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "GGGGCTGGGGATGAAGGTCAAGG",
+          "on_target": false,
+          "cfd_ref": 0.048773690010683754,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "GGGGCTGGGGATGAAGGTCAAGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.2536231884613526
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 22596828,
+          "strand": "+",
+          "mismatches": 3,
+          "pam_class": "NGG",
+          "site23": "ACGGCTGGGTATAAAATTCATGG",
+          "on_target": false,
+          "cfd_ref": 0.1628959276006787,
+          "cfd_alt": null,
+          "mm_ref": 3,
+          "mm_alt": null,
+          "ref_window": "ACGGCTGGGTATAAAATTCATGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.6515837104027148
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "ref": {
+              "available": false,
+              "reason": "NEBIUS_API_KEY and NVIDIA_API_KEY are both unset, so the Evo 2 NIM was not called.",
+              "endpoint": "https://health.api.nvidia.com/v1/biology/arc/evo2-7b/forward",
+              "window_length": 256
+            },
+            "alt": {
+              "available": false,
+              "reason": "no alternate haplotype"
+            }
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 32244173,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGTCCTGGGCATAAAAGCCTGGG",
+          "on_target": false,
+          "cfd_ref": 0.06806722699663866,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGTCCTGGGCATAAAAGCCTGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.15882352949999998
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 84045168,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGGGCTGGTTATAAAAATAATGG",
+          "on_target": false,
+          "cfd_ref": 0.20078431381691875,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGGGCTGGTTATAAAAATAATGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.46849673177098033
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "ref": {
+              "available": false,
+              "reason": "NEBIUS_API_KEY and NVIDIA_API_KEY are both unset, so the Evo 2 NIM was not called.",
+              "endpoint": "https://health.api.nvidia.com/v1/biology/arc/evo2-7b/forward",
+              "window_length": 256
+            },
+            "alt": {
+              "available": false,
+              "reason": "no alternate haplotype"
+            }
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 94396562,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGGGATGGGTGTCAAAGTCAAGG",
+          "on_target": false,
+          "cfd_ref": 0.07359575414170721,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGGGATGGGTGTCAAAGTCAAGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.3495798318235294
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 112253324,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "TGGGCTGGGCACAAAAGGGATGG",
+          "on_target": false,
+          "cfd_ref": 0.03947368416885965,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "TGGGCTGGGCACAAAAGGGATGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.3157894733508772
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 120904734,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGGGCTGTGAATGAAAGGCATGG",
+          "on_target": false,
+          "cfd_ref": 0.1177536231080918,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGGGCTGTGAATGAAAGGCATGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.3532608696775363
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Deferred. |\u0394CFD| < 0.05 and the score is not within 0.05 of \u03c4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 124676531,
+          "strand": "-",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGGGCAGGGCAAAAAAAGCAAGG",
+          "on_target": false,
+          "cfd_ref": 0.21570370349392595,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGGGCAGGGCAAAAAAAGCAAGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.647111111128889
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "ref": {
+              "available": false,
+              "reason": "NEBIUS_API_KEY and NVIDIA_API_KEY are both unset, so the Evo 2 NIM was not called.",
+              "endpoint": "https://health.api.nvidia.com/v1/biology/arc/evo2-7b/forward",
+              "window_length": 256
+            },
+            "alt": {
+              "available": false,
+              "reason": "no alternate haplotype"
+            }
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 126436458,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AGGGCAGGGCACAGAAGCCAGGG",
+          "on_target": false,
+          "cfd_ref": 0.16421052665132832,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AGGGCAGGGCACAGAAGCCAGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.3831578951366082
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "ref": {
+              "available": false,
+              "reason": "NEBIUS_API_KEY and NVIDIA_API_KEY are both unset, so the Evo 2 NIM was not called.",
+              "endpoint": "https://health.api.nvidia.com/v1/biology/arc/evo2-7b/forward",
+              "window_length": 256
+            },
+            "alt": {
+              "available": false,
+              "reason": "no alternate haplotype"
+            }
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        },
+        {
+          "guide_id": "HBB-PROM",
+          "chrom": "chr11",
+          "pos": 132593101,
+          "strand": "+",
+          "mismatches": 4,
+          "pam_class": "NGG",
+          "site23": "AAGTCTGGGCAAGAAAGTCAGGG",
+          "on_target": false,
+          "cfd_ref": 0.16053511717750074,
+          "cfd_alt": null,
+          "mm_ref": 4,
+          "mm_alt": null,
+          "ref_window": "AAGTCTGGGCAAGAAAGTCAGGG",
+          "alt_window": null,
+          "envelope": [
+            0.0,
+            0.4414715717966555
+          ],
+          "wave": "NGG",
+          "evo2": {
+            "available": false,
+            "reason": "Over the Evo 2 budget of 4."
+          },
+          "pairs": null,
+          "applied_variant": null,
+          "common_variants": []
+        }
+      ],
+      "citations": [
+        {
+          "claim": "0 off-target sites keep the same mismatch count and change CFD. 0 of them reach 0.2 on either haplotype.",
+          "accepted": true,
+          "reason": "Numbers match the run record and the wording stays inside the registered scope.",
+          "sources": [
+            "doench2016"
+          ]
+        },
+        {
+          "claim": "19 off-target sites were enumerated. 1 carries a common variant at allele frequency 0.05 or higher. Frequencies are gnomAD v4 Non-Finnish European calls.",
+          "accepted": true,
+          "reason": "Numbers match the run record and the wording stays inside the registered scope.",
+          "sources": [
+            "gnomad-v4-api"
+          ]
+        },
+        {
+          "claim": "CFD is the Doench 2016 product of mismatch weights and a PAM weight. Position 1 is PAM-distal.",
+          "accepted": true,
+          "reason": "Numbers match the run record and the wording stays inside the registered scope.",
+          "sources": [
+            "doench2016"
+          ]
+        },
+        {
+          "claim": "Evo 2, when a score is returned, is a sequence prior. A disagreement with the CFD delta is not a cutting probability.",
+          "accepted": true,
+          "reason": "Numbers match the run record and the wording stays inside the registered scope.",
+          "sources": [
+            "doench2016"
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CRISPR-Ops</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header>
+    <div>
+      <p class="kicker">Don't just score the guide. Audit the assumption.</p>
+      <h1>CRISPR-Ops</h1>
+    </div>
+    <p class="scope">Research use only. Not a diagnosis. Personal genomes are refused.</p>
+  </header>
+
+  <main>
+    <section class="controls">
+      <label>Gene <input id="gene" value="HBB" autocomplete="off" /></label>
+      <label>Population
+        <select id="population">
+          <option value="sas" selected>South Asian</option>
+          <option value="afr">African / African American</option>
+          <option value="amr">Admixed American</option>
+          <option value="eas">East Asian</option>
+          <option value="nfe">Non-Finnish European</option>
+          <option value="fin">Finnish</option>
+          <option value="asj">Ashkenazi Jewish</option>
+          <option value="mid">Middle Eastern</option>
+        </select>
+      </label>
+      <div id="guide-list"></div>
+      <label>Note <textarea id="note" rows="2" placeholder="Optional. A clinical question or a personal genome is refused."></textarea></label>
+      <div class="buttons">
+        <button id="run" type="button">Run audit</button>
+        <button id="refuse" type="button" class="ghost">Try a clinical question</button>
+        <button id="bench" type="button" class="ghost">Benchmark enumeration</button>
+      </div>
+    </section>
+
+    <section class="trace-wrap">
+      <h2>Agent trace</h2>
+      <ol id="trace"></ol>
+    </section>
+
+    <section class="result-wrap">
+      <h2 id="lead">The run has not started.</h2>
+      <p id="qualifier" class="qualifier"></p>
+      <div id="verdicts"></div>
+      <h3>Sites where CFD moves</h3>
+      <div class="table-scroll"><table id="table"></table></div>
+      <h3>One site</h3>
+      <div id="site" class="site-card">Select a row.</div>
+      <h3>Enumeration</h3>
+      <pre id="bench-out">Not run.</pre>
+      <h3>Validation</h3>
+      <pre id="valid-out">Loading.</pre>
+      <h3>Limitations</h3>
+      <ul id="limits"></ul>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

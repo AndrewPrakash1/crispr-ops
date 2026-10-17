@@ -1,0 +1,13 @@
+{
+  "model_keys_present": false,
+  "policy": {
+    "evo_spent": 24,
+    "evo_deferred": 0,
+    "first_hypothesis": "strand",
+    "n_events": 138
+  },
+  "model": {
+    "skipped": true
+  },
+  "differ": false
+}

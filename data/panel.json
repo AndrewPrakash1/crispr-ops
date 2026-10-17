@@ -1,0 +1,39 @@
+{
+  "name": "CRISPR-Ops demo panel",
+  "description": "Starting panel for the 20-guide x 3-population audit. Add real 20-nt spacers for additional genes; do not invent spacer sequences.",
+  "populations": ["sas", "afr", "nfe"],
+  "fasta": "data/genome/chr11.fa",
+  "panel": [
+    {
+      "gene": "HBB",
+      "note": "Beta-globin locus on chr11",
+      "guides": [
+        {
+          "id": "HBB-HTY3",
+          "spacer": "GTAACGGCAGACTTCTCCTC",
+          "note": "Published HBB exon-1 spacer against the reference allele. GRCh38 hit is chr11:5226984 with PAM AGG."
+        },
+        {
+          "id": "HBB-EX1-A",
+          "spacer": "CTTGCCCCACAGGGCAGTAA",
+          "note": "Plus-strand NGG site in HBB exon 1 on GRCh38 (PAM CGG). Locus-derived candidate."
+        },
+        {
+          "id": "HBB-PROM",
+          "spacer": "AGGGCTGGGCATAAAAGTCA",
+          "note": "Minus-strand NGG site at the HBB promoter on GRCh38 (window chr11:5227090, PAM GGG). Locus-derived candidate."
+        }
+      ]
+    },
+    {
+      "gene": "CCR5",
+      "note": "Place-holder: paste real 20-nt spacers from the Notion panel here before running.",
+      "guides": []
+    },
+    {
+      "gene": "PCSK9",
+      "note": "Place-holder: paste real 20-nt spacers from the Notion panel here before running.",
+      "guides": []
+    }
+  ]
+}

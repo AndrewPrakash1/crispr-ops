@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+data/genome/*.fa
+data/genome/*.fa.gz
+data/cache/
+data/popoff.sqlite
+web/__pycache__/
+*.o
+cpp/enumerate_cpu
+cuda/enumerate_gpu
+.DS_Store

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>CRISPR-Ops — Project overview</title>
+<style>
+  @page { size: A4; margin: 16mm 16mm 18mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Avenir Next", "Segoe UI", sans-serif;
+    color: #1a1814;
+    background: #fff;
+    font-size: 11pt;
+    line-height: 1.45;
+  }
+  h1, h2, h3 { font-family: "Iowan Old Style", Palatino, Georgia, serif; font-weight: 600; letter-spacing: -0.02em; }
+  h1 { font-size: 34pt; line-height: 0.95; margin: 0 0 8px; }
+  h2 { font-size: 18pt; margin: 0 0 8px; page-break-after: avoid; }
+  h3 { font-size: 13pt; margin: 14px 0 4px; page-break-after: avoid; }
+  p { margin: 0 0 8px; }
+  ul { margin: 4px 0 10px; padding-left: 18px; }
+  li { margin: 0 0 4px; }
+  .cover {
+    min-height: 250mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    page-break-after: always;
+  }
+  .kicker {
+    font-size: 9pt;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #1f4d3a;
+    margin: 0 0 18px;
+  }
+  .tagline { font-size: 16pt; font-family: "Iowan Old Style", Palatino, Georgia, serif; margin: 12px 0 0; }
+  .meta { font-size: 10pt; color: #4a453c; }
+  .rule { height: 1px; background: #1a1814; border: 0; margin: 16px 0; }
+  .section { page-break-before: always; }
+  .section.first { page-break-before: auto; }
+  .lead { font-size: 12.5pt; }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 14px; }
+  .card { border: 1px solid #1a1814; padding: 10px 12px; page-break-inside: avoid; }
+  .card strong { display: block; font-size: 10pt; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 4px; }
+  .card span { font-size: 10.5pt; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 14px; font-size: 10pt; page-break-inside: avoid; }
+  th, td { text-align: left; vertical-align: top; border-bottom: 1px solid #cfc6b8; padding: 6px 8px 6px 0; }
+  th { font-size: 8.5pt; letter-spacing: 0.08em; text-transform: uppercase; color: #1f4d3a; }
+  .flow { display: grid; grid-template-columns: 1fr 28px 1.3fr 28px 1fr; gap: 6px; align-items: stretch; margin: 12px 0 16px; }
+  .box { border: 1px solid #1a1814; padding: 8px 10px; font-size: 9.5pt; }
+  .box b { display: block; margin-bottom: 4px; }
+  .arrow { display: flex; align-items: center; justify-content: center; font-size: 16pt; }
+  .note { background: #f3efe6; padding: 10px 12px; font-size: 10pt; margin: 8px 0 12px; page-break-inside: avoid; }
+  footer.pagefoot { margin-top: 18px; font-size: 8.5pt; color: #6b645a; }
+  code { font-family: "SF Mono", ui-monospace, monospace; font-size: 9.5pt; }
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <div>
+    <p class="kicker">Nebius × NVIDIA hackathon · Apps and Agents</p>
+    <h1>CRISPR-Ops</h1>
+    <p class="tagline">Don't just score the guide. Audit the assumption.</p>
+    <hr class="rule" />
+    <p class="lead">An autonomous audit of CRISPR off-target scores when the reference genome is not the allele a named population actually carries.</p>
+  </div>
+  <div class="meta">
+    <p>Team: Andrew Benjamin, Will, Mike</p>
+    <p>Research use only. Not a diagnosis. Personal genomes are refused.</p>
+    <p>10 October 2026</p>
+  </div>
+</section>
+
+<section class="section first">
+  <p class="kicker">01 — Project overview</p>
+  <h2>The reference genome is an assumption</h2>
+  <p>Guide-RNA design tools score a spacer against one reference sequence and a mismatch count. Both can be the wrong object. A common variant can leave the mismatch count unchanged and still change the CFD score, because the mismatched base pair is now a different one. A variant can also land on a base the score ignores, such as the N of an NGG PAM, and the number does not move at all.</p>
+  <p>CRISPR-Ops takes a gene, a gnomAD population, and a panel of guide candidates. It audits how off-target scores behave under that population's common variants. The output is a method result with a trace of every tool call. It is not a clinical screen.</p>
+  <div class="cards">
+    <div class="card"><strong>Input</strong><span>Gene, population, 20 nt spacers. An optional note is checked against the refusal policy before any tool runs.</span></div>
+    <div class="card"><strong>Loop</strong><span>Plan, act, verify, revise. The next tool depends on the last observation.</span></div>
+    <div class="card"><strong>Threshold</strong><span>τ = 0.2 CFD, registered before the run. Common variant means allele frequency ≥ 0.05.</span></div>
+    <div class="card"><strong>Scope</strong><span>Substitutions only. GRCh38 chromosome 11 in the current demo. Bulges and indels are out of scope.</span></div>
+  </div>
+  <h3>What a verdict means</h3>
+  <p>A guide is FLAGGED when any non-on-target site has CFD ≥ 0.2, and CLEAR otherwise. A flip is a change between the reference haplotype and the population haplotype on the NGG wave. A score that stays below 0.2 is a statement about the scoring method, not a statement that a site is safe.</p>
+</section>
+
+<section class="section">
+  <p class="kicker">02 — Solution</p>
+  <h2>An orchestrator with deterministic hands</h2>
+  <p>The model is not a writer appended to a finished pipeline. When <code>NVIDIA_API_KEY</code> is set, Nemotron (<code>nvidia/nvidia-nemotron-nano-9b-v2</code>) chooses the next tool through the NeMo Agent Toolkit ReAct workflow. It may choose only from the legal set for that step. A choice outside the set is rejected and written into the trace. A sentence that adds a number the tools did not return is dropped.</p>
+  <p>Without the key, the model is not called. The registered policy chooses the branch, and the first line of the trace says so. A flipped verdict remains a consequence of τ = 0.2. If the model says to hold a PAM expansion after a flip, the policy keeps the expansion and records the override.</p>
+  <h3>Decisions that make it an agent</h3>
+  <table>
+    <tr><th>Decision</th><th>What it does</th></tr>
+    <tr><td>Triage</td><td>Evo 2 is spent only on sites with |ΔCFD| ≥ 0.05 or a score within 0.05 of 0.2, capped at four sites. The orchestrator may defer that spend.</td></tr>
+    <tr><td>Disagreement</td><td>When the engine and the second checker disagree, the orchestrator names a hypothesis: strand, window start, or phasing. All three are tested. The trace says which one the tests support.</td></tr>
+    <tr><td>Escalation</td><td>NAG and NGA are searched for one guide only, after its NGG verdict flips or a corrected checker still disagrees. Other guides stay on NGG.</td></tr>
+    <tr><td>Refusal</td><td>A personal genome or a clinical question is rejected before enumeration. The refusal is logged.</td></tr>
+  </table>
+  <h3>Tools</h3>
+  <table>
+    <tr><th>Tool</th><th>Contract</th></tr>
+    <tr><td>enumerate_sites</td><td>Guide, PAM set, mismatch ≤ 4. CPU enumerator. Both strands. 23 bp window, mismatches on the 20 bp spacer.</td></tr>
+    <tr><td>fetch_af</td><td>gnomAD v4 allele frequency for one population. SNVs only. Disk cache. Alleles that contradict the FASTA are dropped.</td></tr>
+    <tr><td>score_cfd</td><td>Doench 2016 CFD on the reference window and the alternate window. Position 1 is PAM-distal. The PAM N is not in the product.</td></tr>
+    <tr><td>crispr_me_check</td><td>Second enumerator plus a second window builder. In-repo unless CRISPRME_BIN is set. It is not CRISPRme+ by default.</td></tr>
+    <tr><td>resolve_disagreement</td><td>Compares haplotype deltas. Investigate, expand PAM, ask Evo 2, or accept. Accept is not a safety verdict.</td></tr>
+    <tr><td>evo2_score</td><td>Evo 2 NIM mean log-probability of the reference window versus the variant window. A sequence-context prior, not a cutting probability.</td></tr>
+    <tr><td>gpu_enumerate</td><td>Same hit definition as the CPU scanner, in cuda/enumerate.cu. Used for the expanded PAM search when the binary exists.</td></tr>
+    <tr><td>verify_citation</td><td>A claim is shown only if its numbers are in the run record and it is not a clinical conclusion.</td></tr>
+  </table>
+</section>
+
+<section class="section">
+  <p class="kicker">03 — Uniqueness</p>
+  <h2>The GPU is a decision, and the null is allowed</h2>
+  <div class="cards">
+    <div class="card"><strong>Agency</strong><span>Triage, disagreement, escalation, and refusal are branches. The trace is the product, not a summary glued on at the end.</span></div>
+    <div class="card"><strong>Two scoring axes</strong><span>CFD is a lookup. Evo 2 is the second axis, used where CFD moves or sits near τ. Likelihood is a prior, never ground truth.</span></div>
+    <div class="card"><strong>Adaptive PAM scope</strong><span>NAG and NGA are not brute-forced for every guide. The search widens only for the guide whose verdict moved.</span></div>
+    <div class="card"><strong>Visible correction</strong><span>A real strand bug in the second window builder is detected, hypothesized, re-run, and closed in the trace.</span></div>
+  </div>
+  <p>The scientific bar is the part that should not be softened for a demo. CFD is not treated as a validated oracle. A GUIDE-seq table is scored only if <code>data/guideseq.tsv</code> is present. If population-aware ranking does not beat the reference-only ranking, the result is the null. This build does not claim a correlation.</p>
+  <p>Absolute CFD values are reported against the registered threshold. On the chromosome 11 panel, the one common South Asian overlap does not move CFD. That is reported as method behavior: the substitution is the N of the PAM, and CFD multiplies mismatch weights and the last two PAM bases.</p>
+  <div class="note">The demo does not fill in an allele frequency, a CFD split, or an experimental correlation that this run did not measure. The reference base at the overlapping site is not a minority allele.</div>
+</section>
+
+<section class="section">
+  <p class="kicker">04 — System architecture</p>
+  <h2>Loop, tools, and the GPU layer</h2>
+  <div class="flow">
+    <div class="box"><b>User</b>Gene, population, guide panel, optional note.</div>
+    <div class="arrow">→</div>
+    <div class="box"><b>Orchestrator</b>NeMo Agent Toolkit <code>react_agent</code>. Nemotron when a key is set. Registered policy otherwise. Policy refusal runs first.</div>
+    <div class="arrow">→</div>
+    <div class="box"><b>Trace and report</b>Tool calls, hypothesis, re-run, citations, limitations.</div>
+  </div>
+  <div class="cards">
+    <div class="card"><strong>Deterministic tools</strong><span>enumerate_sites, fetch_af, score_cfd, crispr_me_check, resolve_disagreement, verify_citation. Pure functions. They do not choose the next step.</span></div>
+    <div class="card"><strong>GPU layer</strong><span>evo2_score on the BioNeMo NIM. gpu_enumerate from cuda/enumerate.cu. Called when triage or escalation says the cheap pass is not enough.</span></div>
+  </div>
+  <h3>Enumeration</h3>
+  <p>The CPU binary in <code>cpp/enumerate.cpp</code> has two algorithms, PAM-skip and a full scan. Their hit lists are required to match. The CUDA kernel uses the same hit definition and the same TSV. On this machine there is no <code>nvcc</code> binary, so the expanded search falls back to the CPU enumerator and the trace says which device ran. A measured chromosome 11 NGG scan of one guide was about 1.3 seconds for PAM-skip and 1.5 seconds for the full scan, with equal hit lists.</p>
+  <h3>Haplotype rule</h3>
+  <p>The primary haplotype is the single highest-frequency SNV in the 23 bp window. gnomAD does not phase that window. A compound all-in-cis haplotype is recorded as a sensitivity when the checker builds one. It is not adopted as the verdict.</p>
+  <h3>NeMo Agent Toolkit</h3>
+  <p><code>workflows/crispr_ops.yml</code> is the ReAct workflow: ten tools, <code>max_tool_calls: 40</code>, native tool calling, model <code>nvidia/nvidia-nemotron-nano-9b-v2</code>. <code>nat validate</code> accepts it. <code>workflows/popoff_audit.yml</code> runs the same audit with the policy choosing every branch, which is the path the local demo uses until a key is set.</p>
+</section>
+
+<section class="section">
+  <p class="kicker">05 — What this run measured</p>
+  <h2>HBB, South Asian, chromosome 11</h2>
+  <p>Three guides. HBB-HTY3 is a published exon-1 spacer against the reference allele. HBB-EX1-A and HBB-PROM are NGG sites read off GRCh38 at this locus. They are audit candidates, not therapeutic recommendations.</p>
+  <table>
+    <tr><th>Guide</th><th>Reference</th><th>Population</th><th>Flip</th></tr>
+    <tr><td>HBB-HTY3</td><td>CLEAR</td><td>CLEAR</td><td>No</td></tr>
+    <tr><td>HBB-EX1-A</td><td>FLAGGED</td><td>FLAGGED</td><td>No</td></tr>
+    <tr><td>HBB-PROM</td><td>FLAGGED</td><td>FLAGGED</td><td>No</td></tr>
+  </table>
+  <p>Nineteen off-target sites were enumerated. One common South Asian SNV overlaps a window: chr11:13061395 C&gt;T, allele frequency 0.25, on HBB-PROM at window chr11:13061375. CFD stays 0.0391 because the base is the N of the PAM. No guide flipped, so NAG and NGA were not searched. The second checker disagreed on minus-strand windows. The policy hypothesis was strand. The re-run agreed. The resolver moved from INVESTIGATE to ACCEPT.</p>
+  <p>Evo 2 was not scored, because the NVIDIA API key is unset and the endpoint was not called. The CUDA kernel was not timed.</p>
+  <h3>Two-minute demo, from this run</h3>
+  <table>
+    <tr><th>Time</th><th>What is on screen</th></tr>
+    <tr><td>0:00–0:20</td><td>The reference allele and the population allele are not the same object. At this site the population base is common and CFD does not move, because it is the N of the PAM.</td></tr>
+    <tr><td>0:20–1:00</td><td>Type HBB and South Asian. The trace streams tool calls, a strand disagreement, and the re-run that agrees. NAG expansion does not fire, and the trace says why.</td></tr>
+    <tr><td>1:00–1:30</td><td>One site: ref and alt windows, CFD 0.0391 to 0.0391, the PAM-N reading. Evo 2 is deferred and labeled unavailable.</td></tr>
+    <tr><td>1:30–2:00</td><td>CPU PAM-skip versus full scan, equal hits, no GPU timing, no GUIDE-seq table, the limitations list.</td></tr>
+  </table>
+  <h3>Limitations, stated with the result</h3>
+  <ul>
+    <li>The loaded reference is GRCh38 chromosome 11, not the whole genome.</li>
+    <li>Substitutions only. The primary haplotype is one SNV, because gnomAD does not phase the window.</li>
+    <li>The cross-check is an in-repo second enumerator unless CRISPRME_BIN points at an external binary.</li>
+    <li>τ = 0.2 is a registered method cutoff, not a measured cutting rate.</li>
+    <li>Population-by-guide-by-site scoring across every gnomAD superpopulation was not built. This build does the enumeration kernel and the Evo 2 prior.</li>
+  </ul>
+  <p class="note">Research-use only. This is an audit of how off-target scores behave under population variation. It is not a clinical screen, not a diagnosis, and it does not accept personal genomes. Evo 2 likelihood is a sequence-context prior, not a cutting probability.</p>
+  <footer class="pagefoot">CRISPR-Ops · Andrew Benjamin, Will, Mike · 10 October 2026</footer>
+</section>
+
+</body>
+</html>

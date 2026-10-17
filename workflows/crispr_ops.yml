@@ -1,0 +1,62 @@
+llms:
+  orchestrator:
+    _type: nim
+    model_name: nvidia/nvidia-nemotron-nano-9b-v2
+    temperature: 0.0
+    max_tokens: 800
+
+functions:
+  begin_audit:
+    _type: popoff_begin_audit
+    genome_fasta: data/genome/chr11.fa
+  enumerate_sites:
+    _type: popoff_enumerate_sites
+  fetch_and_score:
+    _type: popoff_fetch_and_score
+  crispr_me_check:
+    _type: popoff_crispr_me_check
+  resolve_disagreement:
+    _type: popoff_resolve_disagreement
+  investigate:
+    _type: popoff_investigate
+  evo2_score:
+    _type: popoff_evo2_score
+  gpu_enumerate:
+    _type: popoff_gpu_enumerate
+  audit_report:
+    _type: popoff_audit_report
+  verify_citation:
+    _type: popoff_verify_citation
+
+workflow:
+  _type: react_agent
+  llm_name: orchestrator
+  verbose: true
+  max_tool_calls: 40
+  use_native_tool_calling: true
+  pass_tool_call_errors_to_agent: true
+  tool_names:
+    - begin_audit
+    - enumerate_sites
+    - fetch_and_score
+    - crispr_me_check
+    - resolve_disagreement
+    - investigate
+    - evo2_score
+    - gpu_enumerate
+    - audit_report
+    - verify_citation
+  additional_instructions: >
+    You are auditing guide RNA off-target scores under a named population.
+    Call begin_audit first with the user text. If it returns refused, stop
+    and give that reason. For each guide id it returns, call enumerate_sites,
+    then fetch_and_score, then crispr_me_check, then resolve_disagreement.
+    Follow the resolver action. INVESTIGATE means call investigate.
+    ESCALATE_EVO2 means call evo2_score. ESCALATE_GPU_ENUMERATION means call
+    gpu_enumerate. If gpu_enumerate returns an error, do not retry it with
+    invented sites. ACCEPT is not a safety verdict. Call audit_report, then
+    verify_citation on its lead. The Final Answer must copy the lead and the
+    qualifier. Do not add an allele frequency, a CFD score, or a GUIDE-seq
+    correlation that a tool did not return. Do not say a guide is safe or
+    unsafe for a patient. Evo 2 is not a cutting probability. The second
+    checker is not CRISPRme+ unless a tool says an external binary ran.

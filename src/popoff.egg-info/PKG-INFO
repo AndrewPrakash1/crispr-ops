@@ -1,0 +1,10 @@
+Metadata-Version: 2.4
+Name: popoff
+Version: 0.1.0
+Summary: Population-aware CRISPR off-target audit
+Requires-Python: >=3.11
+Requires-Dist: fastapi
+Requires-Dist: uvicorn
+Requires-Dist: httpx
+Provides-Extra: nat
+Requires-Dist: nvidia-nat; extra == "nat"
