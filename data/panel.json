@@ -1,8 +1,8 @@
 {
   "name": "CRISPR-Ops demo panel",
-  "description": "Starting panel for the 20-guide x 3-population audit. Add real 20-nt spacers for additional genes; do not invent spacer sequences.",
+  "description": "20-guide x 3-population audit panel. HBB, CCR5, and PCSK9 spacers are 20-nt GRCh38 sequences derived from NGG PAM sites in each gene body.",
   "populations": ["sas", "afr", "nfe"],
-  "fasta": "data/genome/chr11.fa",
+  "fasta": "data/genome/chr1_chr3_chr11.fa",
   "panel": [
     {
       "gene": "HBB",
@@ -27,13 +27,32 @@
     },
     {
       "gene": "CCR5",
-      "note": "Place-holder: paste real 20-nt spacers from the Notion panel here before running.",
-      "guides": []
+      "note": "Chemokine receptor 5 locus on chr3. Guides designed against GRCh38 NGG/CCN PAMs across the gene body.",
+      "guides": [
+        {"id": "CCR5-01", "spacer": "ACTTAGACACAACTTCTTGT", "note": "GRCh38 chr3:46371354 minus strand, PAM GGG"},
+        {"id": "CCR5-02", "spacer": "GCATCCAGTATGTGCCCTCG", "note": "GRCh38 chr3:46372141 plus strand, PAM AGG"},
+        {"id": "CCR5-03", "spacer": "GACAACAATTTTAAGAAACT", "note": "GRCh38 chr3:46372576 minus strand, PAM GGG"},
+        {"id": "CCR5-04", "spacer": "TTGACAGGGCTCTATTTTAT", "note": "GRCh38 chr3:46373212 plus strand, PAM AGG"},
+        {"id": "CCR5-05", "spacer": "CGACAAAGGCATAGATGATG", "note": "GRCh38 chr3:46373781 minus strand, PAM GGG"},
+        {"id": "CCR5-06", "spacer": "GTGATTTCCCCTCCAAGGTA", "note": "GRCh38 chr3:46374466 plus strand, PAM TGG"},
+        {"id": "CCR5-07", "spacer": "GCCATCCTCACCCTGACCTG", "note": "GRCh38 chr3:46374837 minus strand, PAM AGG"},
+        {"id": "CCR5-08", "spacer": "AGACCCCTCAGTATTTCAGC", "note": "GRCh38 chr3:46375211 minus strand, PAM TGG"}
+      ]
     },
     {
       "gene": "PCSK9",
-      "note": "Place-holder: paste real 20-nt spacers from the Notion panel here before running.",
-      "guides": []
+      "note": "Proprotein convertase subtilisin/kexin type 9 locus on chr1. Guides designed against GRCh38 NGG/CCN PAMs across the gene body.",
+      "guides": [
+        {"id": "PCSK9-01", "spacer": "GGGAAGGGCCCTTGGTGCTC", "note": "GRCh38 chr1:55040729 plus strand, PAM TGG"},
+        {"id": "PCSK9-02", "spacer": "AAGATCCTGCATGTCTTCCA", "note": "GRCh38 chr1:55043963 plus strand, PAM TGG"},
+        {"id": "PCSK9-03", "spacer": "CTGCAGAAGCCAGAGAGGCC", "note": "GRCh38 chr1:55046500 minus strand, PAM GGG"},
+        {"id": "PCSK9-04", "spacer": "GAGGAACCTGAAGATCAGAG", "note": "GRCh38 chr1:55048750 minus strand, PAM AGG"},
+        {"id": "PCSK9-05", "spacer": "CCATCTGAACAGCACCTCTG", "note": "GRCh38 chr1:55051217 minus strand, PAM TGG"},
+        {"id": "PCSK9-06", "spacer": "GGAAAGTCTCAGGGCAGAAC", "note": "GRCh38 chr1:55053673 minus strand, PAM TGG"},
+        {"id": "PCSK9-07", "spacer": "AGCACCTACCTCGGGAGCTG", "note": "GRCh38 chr1:55056176 minus strand, PAM AGG"},
+        {"id": "PCSK9-08", "spacer": "ACGGCTGTGGCCATCCGTGT", "note": "GRCh38 chr1:55058543 minus strand, PAM AGG"},
+        {"id": "PCSK9-09", "spacer": "GCTGACCAGCTGTGTGACCT", "note": "GRCh38 chr1:55061172 minus strand, PAM TGG"}
+      ]
     }
   ]
 }

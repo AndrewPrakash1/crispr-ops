@@ -35,7 +35,7 @@ def main() -> None:
 
     panel = sub.add_parser("panel")
     panel.add_argument("--file", default=str(ROOT / "data" / "panel.json"))
-    panel.add_argument("--fasta", default=str(ROOT / "data" / "genome" / "chr11.fa"))
+    panel.add_argument("--fasta", default=str(ROOT / "data" / "genome" / "chr1_chr3_chr11.fa"))
     panel.add_argument("--db", default=str(ROOT / "data" / "popoff.sqlite"))
     panel.add_argument("--grid", default=str(ROOT / "data" / "grid.csv"))
     panel.add_argument("--sites", default=str(ROOT / "data" / "grid_sites.csv"))

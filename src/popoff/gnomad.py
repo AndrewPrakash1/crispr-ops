@@ -87,6 +87,8 @@ def _fetch_region(chrom: str, start: int, stop: int) -> dict:
     key = CACHE / f"{chrom}_{start}_{stop}.json"
     if key.exists():
         return json.loads(key.read_text())
+    # gnomAD GraphQL is rate-limited; a small pause keeps long panels from 429-ing.
+    time.sleep(0.3)
     body = json.dumps({
         "query": QUERY,
         "variables": {"chrom": chrom, "start": start, "stop": stop},

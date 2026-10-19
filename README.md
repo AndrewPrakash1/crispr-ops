@@ -124,8 +124,9 @@ Minimum target: 20 guides × 3 populations. The repo ships a starter panel in `d
 - Engine, policy gate, second checker, and SQLite trace: done
 - Token Factory eligibility helper and A/B diff: done
 - Assumption grid CSV/JSON export: done
+- 20-guide panel across HBB, CCR5, and PCSK9: done in `data/panel.json`
 - Live Nemotron/Evo 2 traces: need Nebius keys to capture
-- Full 20-guide panel: needs real guide spacers added to `data/panel.json`
+- Full panel gnomAD cache: pre-warming in progress; run `popoff panel` until it completes
 
 ## Tech stack
 
