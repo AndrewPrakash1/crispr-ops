@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -13,14 +14,57 @@ GPU_BIN = ROOT / "cuda" / "enumerate_gpu"
 
 
 def build_cpu() -> Path:
+    binary = CPU_BIN.with_suffix(".exe") if os.name == "nt" else CPU_BIN
     CPU_BIN.parent.mkdir(parents=True, exist_ok=True)
-    if CPU_BIN.exists() and CPU_BIN.stat().st_mtime >= CPU_SRC.stat().st_mtime:
-        return CPU_BIN
-    subprocess.run(
-        ["c++", "-O3", "-std=c++17", "-pthread", str(CPU_SRC), "-o", str(CPU_BIN)],
+    if binary.exists() and binary.stat().st_mtime >= CPU_SRC.stat().st_mtime:
+        return binary
+
+    compiler = shutil.which("c++")
+    if compiler:
+        subprocess.run(
+            [compiler, "-O3", "-std=c++17", "-pthread", str(CPU_SRC), "-o", str(binary)],
+            check=True,
+        )
+    elif os.name == "nt":
+        _build_cpu_msvc(binary)
+    else:
+        subprocess.run(
+            ["c++", "-O3", "-std=c++17", "-pthread", str(CPU_SRC), "-o", str(binary)],
+            check=True,
+        )
+    return binary
+
+
+def _build_cpu_msvc(binary: Path) -> None:
+    program_files_x86 = os.environ.get("ProgramFiles(x86)", r"C:\Program Files (x86)")
+    vswhere = Path(program_files_x86) / "Microsoft Visual Studio" / "Installer" / "vswhere.exe"
+    installations = subprocess.run(
+        [
+            str(vswhere),
+            "-latest",
+            "-products",
+            "*",
+            "-requires",
+            "Microsoft.VisualStudio.Component.VC.Tools.x86.x64",
+            "-property",
+            "installationPath",
+        ],
         check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip().splitlines()
+    if not installations:
+        raise FileNotFoundError("No Visual Studio C++ Build Tools installation was found.")
+    vcvars = Path(installations[-1]) / "VC" / "Auxiliary" / "Build" / "vcvars64.bat"
+    command = (
+        f'& $env:ComSpec /c \'call "{vcvars}" >nul && cl /nologo /O2 /std:c++17 /EHsc '
+        f'/Fe:"{binary}" "{CPU_SRC}"\''
     )
-    return CPU_BIN
+    subprocess.run(
+        [shutil.which("powershell.exe") or "powershell.exe", "-NoProfile", "-Command", command],
+        check=True,
+        cwd=CPU_SRC.parent,
+    )
 
 
 def gpu_available() -> bool:
