@@ -51,9 +51,14 @@ cd crispr-ops
 python3.11 -m venv .venv
 .venv/bin/pip install -e ".[nat]"
 
-# Download GRCh38 chr11 (the demo panel is on chr11)
-curl -L -o data/genome/chr11.fa.gz https://hgdownload.soe.ucsc.edu/goldenPath/hg38/chromosomes/chr11.fa.gz
-gunzip -kf data/genome/chr11.fa.gz
+# Download the GRCh38 chromosomes used by the 20-guide panel
+mkdir -p data/genome
+for chrom in 1 3 11; do
+  curl -fL -o "data/genome/chr${chrom}.fa.gz" \
+    "https://hgdownload.soe.ucsc.edu/goldenPath/hg38/chromosomes/chr${chrom}.fa.gz"
+  gunzip -kf "data/genome/chr${chrom}.fa.gz"
+done
+cat data/genome/chr1.fa data/genome/chr3.fa data/genome/chr11.fa > data/genome/chr1_chr3_chr11.fa
 
 # Run the web demo
 PYTHONPATH=src .venv/bin/python -m popoff.cli serve
@@ -82,6 +87,8 @@ PYTHONPATH=src .venv/bin/python scripts/ab_diff.py
 # Run tests
 PYTHONPATH=src .venv/bin/python -m pytest
 ```
+
+The panel command writes 60 guide/population rows (20 guides × 3 populations) to `data/grid.csv` and per-site detail to `data/grid_sites.csv`. gnomAD lookups are batched by guide and cached per site; reruns reuse completed records when the guide set and reference FASTA match.
 
 ## Eligibility for the NVIDIA track
 

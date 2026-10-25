@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import ssl
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -13,10 +14,14 @@ from pathlib import Path
 import certifi
 
 _SSL = ssl.create_default_context(cafile=certifi.where())
+_REQUEST_INTERVAL_SECONDS = 6.0
+_last_request_at = 0.0
+_request_lock = threading.Lock()
 
 ROOT = Path(__file__).resolve().parents[2]
 CACHE = ROOT / "data" / "cache" / "gnomad"
 API = "https://gnomad.broadinstitute.org/api"
+_BATCH_SIZE = 50
 
 QUERY = """
 query($chrom: String!, $start: Int!, $stop: Int!) {
@@ -84,11 +89,9 @@ def _pop_af(block: dict | None, population: str) -> tuple[int, int] | None:
 
 def _fetch_region(chrom: str, start: int, stop: int) -> dict:
     CACHE.mkdir(parents=True, exist_ok=True)
-    key = CACHE / f"{chrom}_{start}_{stop}.json"
+    key = _cache_path(chrom, start, stop)
     if key.exists():
         return json.loads(key.read_text())
-    # gnomAD GraphQL is rate-limited; a small pause keeps long panels from 429-ing.
-    time.sleep(0.3)
     body = json.dumps({
         "query": QUERY,
         "variables": {"chrom": chrom, "start": start, "stop": stop},
@@ -96,8 +99,66 @@ def _fetch_region(chrom: str, start: int, stop: int) -> dict:
     req = urllib.request.Request(
         API, data=body, headers={"content-type": "application/json", "accept": "application/json"}
     )
+    payload = _request_payload(req)
+    key.write_text(json.dumps(payload))
+    return payload
+
+
+def prefetch_af(sites: list[dict]) -> int:
+    """Fetch uncached 23-base site intervals in batched GraphQL requests."""
+    CACHE.mkdir(parents=True, exist_ok=True)
+    intervals = {}
+    for site in sites:
+        chrom = site["chrom"]
+        api_chrom = chrom[3:] if chrom.startswith("chr") else chrom
+        if not api_chrom.isdecimal():
+            raise ValueError(f"unexpected chromosome name {chrom!r}")
+        start = int(site["pos"])
+        stop = start + 22
+        intervals[(api_chrom, start, stop)] = _cache_path(api_chrom, start, stop)
+    pending = [(interval, path) for interval, path in intervals.items() if not path.exists()]
+    for offset in range(0, len(pending), _BATCH_SIZE):
+        _prefetch_batch(pending[offset : offset + _BATCH_SIZE])
+    return len(pending)
+
+
+def _prefetch_batch(batch: list[tuple[tuple[str, int, int], Path]]) -> None:
+    fields = []
+    for index, ((chrom, start, stop), _path) in enumerate(batch):
+        fields.append(
+            f'  r{index}: region(chrom: "{chrom}", start: {start}, stop: {stop}, '
+            "reference_genome: GRCh38) { variants(dataset: gnomad_r4) { "
+            "variant_id pos ref alt genome { ac an populations { id ac an } } "
+            "exome { ac an populations { id ac an } } } }"
+        )
+    query = "query {\n" + "\n".join(fields) + "\n}"
+    req = urllib.request.Request(
+        API,
+        data=json.dumps({"query": query}).encode(),
+        headers={"content-type": "application/json", "accept": "application/json"},
+    )
+    try:
+        payload = _request_payload(req)
+    except urllib.error.HTTPError as exc:
+        if exc.code not in (400, 413) or len(batch) == 1:
+            raise
+        midpoint = len(batch) // 2
+        _prefetch_batch(batch[:midpoint])
+        _prefetch_batch(batch[midpoint:])
+        return
+    data = payload.get("data") or {}
+    for index, (_interval, path) in enumerate(batch):
+        path.write_text(json.dumps({"data": {"region": data.get(f"r{index}")}}))
+
+
+def _cache_path(chrom: str, start: int, stop: int) -> Path:
+    return CACHE / f"{chrom}_{start}_{stop}.json"
+
+
+def _request_payload(req: urllib.request.Request) -> dict:
     payload = None
     for attempt in range(4):
+        _wait_for_request_slot()
         try:
             with urllib.request.urlopen(req, timeout=60, context=_SSL) as resp:
                 payload = json.loads(resp.read().decode())
@@ -105,7 +166,9 @@ def _fetch_region(chrom: str, start: int, stop: int) -> dict:
         except urllib.error.HTTPError as exc:
             if exc.code not in (429, 500, 502, 503) or attempt == 3:
                 raise
-            time.sleep(1.5 * (attempt + 1))
+            retry_after = exc.headers.get("Retry-After")
+            delay = float(retry_after) if retry_after and retry_after.isdecimal() else 0.0
+            time.sleep(max(delay, 1.5 * (attempt + 1)))
         except urllib.error.URLError:
             if attempt == 3:
                 raise
@@ -114,8 +177,16 @@ def _fetch_region(chrom: str, start: int, stop: int) -> dict:
         raise RuntimeError("gnomAD request failed")
     if payload.get("errors"):
         raise RuntimeError(payload["errors"])
-    key.write_text(json.dumps(payload))
     return payload
+
+
+def _wait_for_request_slot() -> None:
+    global _last_request_at
+    with _request_lock:
+        elapsed = time.monotonic() - _last_request_at
+        if elapsed < _REQUEST_INTERVAL_SECONDS:
+            time.sleep(_REQUEST_INTERVAL_SECONDS - elapsed)
+        _last_request_at = time.monotonic()
 
 
 def fetch_af(chrom: str, start: int, end: int, population: str) -> list[Variant]:

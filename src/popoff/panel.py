@@ -14,7 +14,8 @@ import os
 from pathlib import Path
 
 from popoff.agent import audit_events
-from popoff.store import get_store
+from popoff.genome import GENOMES
+from popoff.store import RunStore, get_store
 
 
 def load_panel(path: str | Path) -> dict:
@@ -35,6 +36,29 @@ def run_panel(panel: dict, fasta: str | None = None, db_path: str | Path | None 
     default_fasta = panel.get("fasta")
     fasta = fasta or default_fasta or ""
 
+    store = RunStore()
+    genome_sha256 = GENOMES.get(fasta).sha256
+    reusable = {}
+    panel_entries = {entry["gene"]: entry for entry in panel.get("panel", [])}
+    expected_keys = {
+        (gene, population)
+        for gene, entry in panel_entries.items()
+        for population in populations
+        if entry.get("guides")
+    }
+    for run in store.recent(1000):
+        key = (run["gene"], run["population"])
+        if key in reusable or key not in expected_keys or not run["finished"]:
+            continue
+        record = store.get_record(run["run_id"])
+        if not record or record.get("refused") or record.get("environment", {}).get("genome_sha256") != genome_sha256:
+            continue
+        recorded_guides = [(guide.get("id"), guide.get("spacer")) for guide in record.get("guides", [])]
+        panel_entry = panel_entries[run["gene"]]
+        expected_guides = [(guide["id"], guide["spacer"]) for guide in panel_entry.get("guides", [])]
+        if recorded_guides == expected_guides:
+            reusable[key] = (run["run_id"], record)
+
     results: list[dict] = []
     for entry in panel.get("panel", []):
         gene = entry["gene"]
@@ -42,6 +66,16 @@ def run_panel(panel: dict, fasta: str | None = None, db_path: str | Path | None 
         if not guides:
             continue
         for population in populations:
+            key = (gene, population)
+            if key in reusable:
+                run_id, record = reusable[key]
+                results.append({
+                    "gene": gene,
+                    "population": population,
+                    "run_id": run_id,
+                    "record": record,
+                })
+                continue
             request = {
                 "gene": gene,
                 "population": population,
@@ -123,7 +157,7 @@ def write_csv(rows: list[dict], path: str | Path) -> None:
     if not rows:
         return
     with open(path, "w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(f=handle, fieldnames=list(rows[0].keys()))
+        writer = csv.DictWriter(f=handle, fieldnames=list(rows[0].keys()), lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
