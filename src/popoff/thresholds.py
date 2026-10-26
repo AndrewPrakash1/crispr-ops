@@ -24,4 +24,6 @@ EVO2_BUDGET = 4
 # perfect match just outside the Ensembl gene span is still the on-target.
 GENE_LOCI = {
     "HBB": {"chrom": "chr11", "start": 5225464, "end": 5227400},
+    "CCR5": {"chrom": "chr3", "start": 46371354, "end": 46375234},
+    "PCSK9": {"chrom": "chr1", "start": 55040729, "end": 55061194},
 }

@@ -1,7 +1,7 @@
 # CRISPR-Ops
 
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/)
-[![Tests](https://img.shields.io/badge/tests-22%20passing-brightgreen.svg)](./tests)
+[![Tests](https://img.shields.io/badge/tests-pytest-brightgreen.svg)](./tests)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](./LICENSE)
 
 > **CRISPR-Ops audits how reference-only scoring, mismatch counting, and simplified haplotype rules change computational off-target conclusions under a named population's common variants, and records the investigation as a re-derivable trace. It reports nulls as results and makes no claim about real cutting.**
@@ -51,9 +51,14 @@ cd crispr-ops
 python3.11 -m venv .venv
 .venv/bin/pip install -e ".[nat]"
 
-# Download GRCh38 chr11 (the demo panel is on chr11)
-curl -L -o data/genome/chr11.fa.gz https://hgdownload.soe.ucsc.edu/goldenPath/hg38/chromosomes/chr11.fa.gz
-gunzip -kf data/genome/chr11.fa.gz
+# Download the GRCh38 chromosomes used by the 20-guide panel
+mkdir -p data/genome
+for chrom in 1 3 11; do
+  curl -fL -o "data/genome/chr${chrom}.fa.gz" \
+    "https://hgdownload.soe.ucsc.edu/goldenPath/hg38/chromosomes/chr${chrom}.fa.gz"
+  gunzip -kf "data/genome/chr${chrom}.fa.gz"
+done
+cat data/genome/chr1.fa data/genome/chr3.fa data/genome/chr11.fa > data/genome/chr1_chr3_chr11.fa
 
 # Run the web demo
 PYTHONPATH=src .venv/bin/python -m popoff.cli serve
@@ -82,6 +87,10 @@ PYTHONPATH=src .venv/bin/python scripts/ab_diff.py
 # Run tests
 PYTHONPATH=src .venv/bin/python -m pytest
 ```
+
+The panel command writes 60 guide/population rows (20 guides × 3 populations) to `data/grid.csv` and per-site detail to `data/grid_sites.csv`. gnomAD lookups are batched by guide and cached per site; reruns reuse completed records when the guide set and reference FASTA match.
+
+Saved SQLite runs can be replayed in the web UI from the **Saved run** selector. Replay shows the stored trace and result without calling Token Factory, Evo 2, or gnomAD; it does not substitute for fresh live eligibility evidence.
 
 ## Eligibility for the NVIDIA track
 
@@ -122,11 +131,15 @@ Minimum target: 20 guides × 3 populations. The repo ships a starter panel in `d
 ## Project status
 
 - Engine, policy gate, second checker, and SQLite trace: done
-- Token Factory eligibility helper and A/B diff: done
+- Token Factory client and eligibility/A-B scripts: implemented; live eligibility evidence and a non-empty model-vs-policy diff are pending API access
 - Assumption grid CSV/JSON export: done
 - 20-guide panel across HBB, CCR5, and PCSK9: done in `data/panel.json`
+- Offline replay of saved SQLite traces and the frozen assumption grid: available in the web UI
 - Live Nemotron/Evo 2 traces: need Nebius keys to capture
-- Full panel gnomAD cache: pre-warming in progress; run `popoff panel` until it completes
+- Frozen panel snapshot: `data/grid.json` contains 9 gene/population runs, 60 guide/population rows, and 9,639 site rows; it is available offline, while re-deriving it requires the real GRCh38 FASTA
+- Evo 2 direction output: no available scores in the frozen panel; the biology axis still needs a live NIM result or a valid cached score
+
+Test references are generated as all-`N` sequences under pytest's temporary directory; they are not genome data and must never be used for scientific runs.
 
 ## Tech stack
 
