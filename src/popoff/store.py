@@ -139,6 +139,15 @@ class RunStore:
             ).fetchall()
         return [dict(row) for row in rows]
 
+    def get_run(self, run_id: str) -> dict | None:
+        with _connect() as conn:
+            row = conn.execute(
+                "SELECT run_id, created_at, gene, population, provider, request_id, finished "
+                "FROM runs WHERE run_id = ?",
+                (run_id,),
+            ).fetchone()
+        return dict(row) if row else None
+
     def get_record(self, run_id: str) -> dict | None:
         with _connect() as conn:
             row = conn.execute("SELECT record FROM records WHERE run_id = ?", (run_id,)).fetchone()

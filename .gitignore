@@ -4,6 +4,7 @@ __pycache__/
 .pytest_cache/
 *.egg-info/
 .commandcode/
+*.obj
 data/genome/*.fa
 data/genome/*.fa.gz
 data/cache/
@@ -11,5 +12,6 @@ data/popoff.sqlite
 web/__pycache__/
 *.o
 cpp/enumerate_cpu
+cpp/enumerate_cpu.exe
 cuda/enumerate_gpu
 .DS_Store
