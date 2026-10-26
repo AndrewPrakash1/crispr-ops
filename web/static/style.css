@@ -53,6 +53,7 @@ button:disabled { opacity: 0.5; cursor: wait; }
 .pill.refuse { color: #e07a7a; }
 .pill.result { color: #f4f0e6; }
 .detail { color: #c8bfb2; margin: 0.25rem 0 0; }
+.snapshot-status { color: var(--muted); font-size: 0.85rem; }
 .result-wrap h2 { font-size: 1.35rem; line-height: 1.35; }
 .qualifier, #limits { color: var(--muted); font-size: 0.92rem; }
 .verdict { display: inline-block; margin: 0 0.4rem 0.4rem 0; padding: 0.35rem 0.5rem; border: 1px solid var(--line); font-family: ui-monospace, monospace; font-size: 0.75rem; }

@@ -12,8 +12,17 @@ const benchOut = document.querySelector("#bench-out");
 const validOut = document.querySelector("#valid-out");
 const limits = document.querySelector("#limits");
 const runButton = document.querySelector("#run");
+const savedRun = document.querySelector("#saved-run");
+const loadRunButton = document.querySelector("#load-run");
+const traceMode = document.querySelector("#trace-mode");
+const gridStatus = document.querySelector("#grid-status");
+const gridTable = document.querySelector("#grid-table");
+const gridCsvButton = document.querySelector("#grid-csv");
+const sitesCsvButton = document.querySelector("#sites-csv");
+const gridJsonButton = document.querySelector("#grid-json");
 
 const guides = [];
+let panelSnapshot = null;
 
 function field(value, placeholder) {
   const input = document.createElement("input");
@@ -43,6 +52,100 @@ fetch("/api/validation").then((r) => r.json()).then((data) => {
   validOut.textContent = data.available
     ? JSON.stringify(data, null, 2)
     : data.reason;
+});
+
+async function refreshSavedRuns() {
+  const response = await fetch("/api/runs");
+  if (!response.ok) throw new Error(`Could not list saved runs (${response.status}).`);
+  const data = await response.json();
+  savedRun.replaceChildren();
+  const runs = data.runs || [];
+  runs.forEach((run) => {
+    const option = document.createElement("option");
+    option.value = run.run_id;
+    option.textContent = `${run.gene || "Unknown"} / ${run.population || "unknown"} · ${new Date(run.created_at).toLocaleString()}${run.finished ? "" : " · incomplete"}`;
+    option.disabled = !run.finished;
+    savedRun.append(option);
+  });
+  if (!savedRun.options.length) {
+    const option = document.createElement("option");
+    option.value = "";
+    option.textContent = "No saved runs";
+    savedRun.append(option);
+  }
+  loadRunButton.disabled = !runs.some((run) => run.finished);
+}
+
+refreshSavedRuns().catch((error) => {
+  savedRun.replaceChildren();
+  const option = document.createElement("option");
+  option.value = "";
+  option.textContent = "Saved runs unavailable";
+  savedRun.append(option);
+  loadRunButton.disabled = true;
+  traceMode.textContent = String(error);
+});
+
+async function loadPanelSnapshot() {
+  const response = await fetch("/api/panel");
+  if (!response.ok) throw new Error(`Frozen panel snapshot unavailable (${response.status}).`);
+  panelSnapshot = await response.json();
+  const rows = panelSnapshot.grid || [];
+  const sites = panelSnapshot.sites || [];
+  const evoRows = sites.filter((row) => row.evo2_direction).length;
+  gridStatus.textContent = `Frozen local snapshot · ${rows.length} guide/population rows · ${sites.length} site rows · ${evoRows} Evo 2 directional outputs · loading this snapshot makes no live calls.`;
+  const columns = ["gene", "population", "guide_id", "reference_verdict", "population_verdict", "flipped", "escalated", "n_sites"];
+  const head = document.createElement("tr");
+  columns.forEach((column) => {
+    const th = document.createElement("th");
+    th.textContent = column.replaceAll("_", " ");
+    head.append(th);
+  });
+  gridTable.replaceChildren(head);
+  rows.forEach((row) => {
+    const tr = document.createElement("tr");
+    columns.forEach((column) => {
+      const td = document.createElement("td");
+      td.textContent = row[column] == null ? "" : String(row[column]);
+      tr.append(td);
+    });
+    gridTable.append(tr);
+  });
+  gridCsvButton.disabled = !rows.length;
+  sitesCsvButton.disabled = !sites.length;
+  gridJsonButton.disabled = !rows.length;
+}
+
+loadPanelSnapshot().catch((error) => {
+  gridStatus.textContent = String(error);
+});
+
+function csvText(rows) {
+  if (!rows.length) return "";
+  const columns = Object.keys(rows[0]);
+  const quote = (value) => `"${String(value ?? "").replaceAll('"', '""')}"`;
+  return [columns.map(quote).join(","), ...rows.map((row) => columns.map((column) => quote(row[column])).join(","))].join("\r\n");
+}
+
+function downloadFile(filename, content, type) {
+  const url = URL.createObjectURL(new Blob([content], { type }));
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = filename;
+  anchor.click();
+  URL.revokeObjectURL(url);
+}
+
+gridCsvButton.addEventListener("click", () => {
+  if (panelSnapshot) downloadFile("grid.csv", csvText(panelSnapshot.grid || []), "text/csv;charset=utf-8");
+});
+
+sitesCsvButton.addEventListener("click", () => {
+  if (panelSnapshot) downloadFile("grid_sites.csv", csvText(panelSnapshot.sites || []), "text/csv;charset=utf-8");
+});
+
+gridJsonButton.addEventListener("click", () => {
+  if (panelSnapshot) downloadFile("grid.json", JSON.stringify(panelSnapshot, null, 2), "application/json");
 });
 
 function pill(stage) {
@@ -180,6 +283,7 @@ function renderResult(payload) {
 async function runAudit() {
   runButton.disabled = true;
   trace.replaceChildren();
+  traceMode.textContent = "Live audit trace.";
   const body = {
     gene: gene.value.trim(),
     population: population.value,
@@ -212,12 +316,41 @@ async function runAudit() {
     });
   }
   runButton.disabled = false;
+  refreshSavedRuns().catch((error) => {
+    traceMode.textContent = `Audit finished; saved-run list could not refresh: ${error}`;
+  });
+}
+
+async function replaySavedRun() {
+  if (!savedRun.value) return;
+  loadRunButton.disabled = true;
+  trace.replaceChildren();
+  traceMode.textContent = "Loading saved trace from SQLite; no external API calls are made.";
+  try {
+    const response = await fetch(`/api/runs/${encodeURIComponent(savedRun.value)}`);
+    if (!response.ok) throw new Error(`Could not load saved run (${response.status}).`);
+    const data = await response.json();
+    (data.events || []).forEach((event) => {
+      addTrace(event);
+      if (event.stage === "result") renderResult(event.payload);
+    });
+    if (!(data.events || []).some((event) => event.stage === "result")) {
+      renderResult(data.record || {});
+    }
+    traceMode.textContent = `Offline replay · ${data.run.gene || "Unknown"} / ${data.run.population || "unknown"} · stored ${new Date(data.run.created_at).toLocaleString()}`;
+  } catch (error) {
+    traceMode.textContent = `Saved trace could not be replayed: ${error}`;
+  } finally {
+    loadRunButton.disabled = false;
+  }
 }
 
 runButton.addEventListener("click", () => runAudit().catch((error) => {
   addTrace({ stage: "revise", title: "Browser error", detail: String(error) });
   runButton.disabled = false;
 }));
+
+loadRunButton.addEventListener("click", () => replaySavedRun());
 
 document.querySelector("#refuse").addEventListener("click", () => {
   note.value = "Please diagnose this patient's genome and tell me if it is safe to inject.";
