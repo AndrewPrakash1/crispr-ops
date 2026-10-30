@@ -10,10 +10,42 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from nat.cli.register_workflow import register_function
-from nat.data_models.function import FunctionBaseConfig
-from nat.builder.function_info import FunctionInfo
-from pydantic import Field
+try:
+    from nat.builder.function_info import FunctionInfo
+    from nat.cli.register_workflow import register_function
+    from nat.data_models.function import FunctionBaseConfig
+except ModuleNotFoundError as exc:  # pragma: no cover - optional dependency in test environments
+    if exc.name != "nat":
+        raise
+
+    class FunctionInfo:
+        @staticmethod
+        def from_fn(fn, description=None, **kwargs):
+            return {"fn": fn, "description": description, **kwargs}
+
+    def register_function(config_type=None):
+        def decorator(fn):
+            return fn
+        return decorator
+
+    class FunctionBaseConfig:
+        def __init_subclass__(cls, **kwargs):
+            super().__init_subclass__()
+            for key, value in kwargs.items():
+                setattr(cls, key, value)
+
+        def __init__(self, **kwargs):
+            for key, value in kwargs.items():
+                setattr(self, key, value)
+
+    class _NoopField:
+        def __init__(self, default=None, **kwargs):
+            self.default = default
+
+    def Field(default=None, **kwargs):
+        return _NoopField(default=default, **kwargs)
+else:
+    from pydantic import Field
 
 from popoff import thresholds as T
 from popoff.agent import (

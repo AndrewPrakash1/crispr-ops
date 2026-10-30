@@ -26,7 +26,7 @@ from popoff.citations import verify_citation
 from popoff.crisprme import crispr_me_check
 from popoff.evo2 import evo2_score
 from popoff.genome import GENOMES, Genome
-from popoff.gnomad import POPULATIONS, fetch_af, network_ok
+from popoff.gnomad import POPULATIONS, fetch_af, network_ok, prefetch_af
 from popoff.guides import panel_for
 from popoff.native import GPU_BIN, enumerate_sites, gpu_available
 from popoff.orchestrator import banner, choose
@@ -95,15 +95,24 @@ def audit_events(
     request: dict,
     *,
     fetch_af_fn: Callable | None = None,
+    prefetch_af_fn: Callable | None = None,
     evo2_fn: Callable | None = None,
     store_run: bool = True,
 ) -> Iterator[dict]:
+    if fetch_af_fn is None:
+        fetch_af_fn = _default_fetch
+        prefetch_af_fn = prefetch_af_fn or prefetch_af
     fetch_af_fn = fetch_af_fn or _default_fetch
     evo2_fn = evo2_fn or evo2_score
 
     def _gen():
-        nonlocal fetch_af_fn, evo2_fn
-        yield from _audit_events_inner(request, fetch_af_fn=fetch_af_fn, evo2_fn=evo2_fn)
+        nonlocal fetch_af_fn, prefetch_af_fn, evo2_fn
+        yield from _audit_events_inner(
+            request,
+            fetch_af_fn=fetch_af_fn,
+            prefetch_af_fn=prefetch_af_fn,
+            evo2_fn=evo2_fn,
+        )
 
     events = []
     for event in _gen():
@@ -118,6 +127,7 @@ def _audit_events_inner(
     request: dict,
     *,
     fetch_af_fn: Callable | None = None,
+    prefetch_af_fn: Callable | None = None,
     evo2_fn: Callable | None = None,
 ) -> Iterator[dict]:
     fetch_af_fn = fetch_af_fn or _default_fetch
@@ -202,7 +212,16 @@ def _audit_events_inner(
                 yield _event("result", "Audit complete", result["lead"], payload=result)
             continue
 
-        observations = _act(action, request, population, genome, locus, fetch_af_fn, evo2_fn)
+        observations = _act(
+            action,
+            request,
+            population,
+            genome,
+            locus,
+            fetch_af_fn,
+            evo2_fn,
+            prefetch_af_fn,
+        )
         yield _event("act", action["title"], action.get("detail", ""), action["tool"], observations["public"])
         verification = _verify(action, observations, genome)
         yield _event("verify", verification["title"], verification["detail"], action["tool"], verification["payload"])
@@ -365,7 +384,16 @@ def _triage(guide: _Guide) -> None:
     guide.triage_note = f"{len(guide.evo_queue)} sites selected, {skipped} over budget, {sum(1 for s in guide.sites if s.get('evo2', {}).get('reason', '').startswith('Deferred'))} deferred."
 
 
-def _act(action, request, population, genome: Genome, locus, fetch_af_fn, evo2_fn) -> dict:
+def _act(
+    action,
+    request,
+    population,
+    genome: Genome,
+    locus,
+    fetch_af_fn,
+    evo2_fn,
+    prefetch_af_fn=None,
+) -> dict:
     guide: _Guide = action["guide"]
     if action["tool"] == "enumerate_sites":
         device = "cpu"
@@ -398,6 +426,8 @@ def _act(action, request, population, genome: Genome, locus, fetch_af_fn, evo2_f
             lo, hi = one_snp_envelope(guide.spec["spacer"], hit["site23"])
             hit["envelope"] = [lo, hi]
         guide.sites.extend(hits)
+        if prefetch_af_fn and hits:
+            prefetch_af_fn(hits)
         guide.phase = "fetch" if hits else "check"
         return {
             "public": {

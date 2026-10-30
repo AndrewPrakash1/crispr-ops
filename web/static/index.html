@@ -41,6 +41,11 @@
 
     <section class="trace-wrap">
       <h2>Agent trace</h2>
+      <div class="saved-run-controls">
+        <label>Saved run <select id="saved-run"><option value="">No saved runs</option></select></label>
+        <button id="load-run" type="button" class="ghost" disabled>Replay offline</button>
+      </div>
+      <p id="trace-mode" class="detail">Live audits call the configured workflow; replaying a saved run makes no external API calls.</p>
       <ol id="trace"></ol>
     </section>
 
@@ -58,6 +63,14 @@
       <pre id="valid-out">Loading.</pre>
       <h3>Limitations</h3>
       <ul id="limits"></ul>
+      <h3>Frozen assumption grid</h3>
+      <p id="grid-status" class="snapshot-status">Loading the stored panel snapshot.</p>
+      <div class="buttons">
+        <button id="grid-csv" type="button" class="ghost" disabled>Grid CSV</button>
+        <button id="sites-csv" type="button" class="ghost" disabled>Site CSV</button>
+        <button id="grid-json" type="button" class="ghost" disabled>Panel JSON</button>
+      </div>
+      <div class="table-scroll"><table id="grid-table"></table></div>
     </section>
   </main>
   <script src="/static/app.js"></script>
