@@ -74,13 +74,16 @@ def main() -> int:
     policy_events = _run(policy=True)
     policy_summary = _summarize(policy_events)
 
-    has_keys = bool(os.environ.get("NEBIUS_API_KEY") and os.environ.get("NEBIUS_BASE_URL"))
+    has_keys = bool(
+        (os.environ.get("NEBIUS_API_KEY") and os.environ.get("NEBIUS_BASE_URL"))
+        or os.environ.get("NVIDIA_API_KEY")
+    )
     if has_keys:
         print("Running model branch ...")
         model_events = _run(policy=False)
         model_summary = _summarize(model_events)
     else:
-        print("No NEBIUS_API_KEY+NEBIUS_BASE_URL set; model branch skipped.")
+        print("No orchestrator API key set; model branch skipped.")
         model_events = []
         model_summary = {"skipped": True}
 

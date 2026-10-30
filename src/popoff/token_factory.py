@@ -22,6 +22,18 @@ from typing import Any
 import certifi
 
 _SSL = ssl.create_default_context(cafile=certifi.where())
+_UA = "crispr-ops/1.0 (+https://github.com/AndrewPrakash1/crispr-ops)"
+
+
+def _headers(*, json_body: bool = False) -> dict[str, str]:
+    headers = {
+        "Authorization": _authorization(),
+        "Accept": "application/json",
+        "User-Agent": _UA,
+    }
+    if json_body:
+        headers["Content-Type"] = "application/json"
+    return headers
 
 
 def _nebius_key() -> str:
@@ -47,7 +59,19 @@ def _authorization() -> str:
 def _base_url() -> str:
     if _has_nebius():
         return _nebius_base()
-    return os.environ.get("ORCHESTRATOR_URL", "https://integrate.api.nvidia.com")
+    return os.environ.get("ORCHESTRATOR_URL", "https://integrate.api.nvidia.com").rstrip("/")
+
+
+def _provider_label() -> str:
+    if _has_nebius():
+        return "nebius"
+    if "commandcode.ai" in _base_url():
+        return "commandcode"
+    return "nvidia"
+
+
+def _has_orchestrator_key() -> bool:
+    return _has_nebius() or bool(_legacy_key())
 
 
 def _pick_model(models: list[dict[str, Any]]) -> str | None:
@@ -59,15 +83,11 @@ def _pick_model(models: list[dict[str, Any]]) -> str | None:
 
 
 def list_models() -> dict[str, Any]:
-    """Return eligible Nemotron model ids from the configured endpoint."""
-    if not _has_nebius():
-        return {"available": False, "reason": "NEBIUS_API_KEY and NEBIUS_BASE_URL are not both set"}
+    """Return Nemotron model ids from the configured OpenAI-compatible endpoint."""
+    if not _has_orchestrator_key():
+        return {"available": False, "reason": "NEBIUS_API_KEY+NEBIUS_BASE_URL or NVIDIA_API_KEY is not set"}
     url = f"{_base_url()}/v1/models"
-    req = urllib.request.Request(
-        url,
-        headers={"Authorization": _authorization(), "Accept": "application/json"},
-        method="GET",
-    )
+    req = urllib.request.Request(url, headers=_headers(), method="GET")
     try:
         with urllib.request.urlopen(req, timeout=30, context=_SSL) as resp:
             payload = json.loads(resp.read().decode())
@@ -123,11 +143,7 @@ def chat(messages: list[dict[str, str]], *, temperature: float = 0.0, max_tokens
     req = urllib.request.Request(
         url,
         data=json.dumps(body).encode(),
-        headers={
-            "Authorization": _authorization(),
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
+        headers=_headers(json_body=True),
         method="POST",
     )
     start = time.perf_counter()
@@ -140,7 +156,7 @@ def chat(messages: list[dict[str, str]], *, temperature: float = 0.0, max_tokens
             "error": f"HTTP {exc.code}: {detail}",
             "model": model,
             "endpoint": base,
-            "provider": "nebius" if _has_nebius() else "nvidia",
+            "provider": _provider_label(),
             "latency_ms": int((time.perf_counter() - start) * 1000),
         }
     except Exception as exc:
@@ -148,7 +164,7 @@ def chat(messages: list[dict[str, str]], *, temperature: float = 0.0, max_tokens
             "error": str(exc),
             "model": model,
             "endpoint": base,
-            "provider": "nebius" if _has_nebius() else "nvidia",
+            "provider": _provider_label(),
             "latency_ms": int((time.perf_counter() - start) * 1000),
         }
     latency = int((time.perf_counter() - start) * 1000)
@@ -159,7 +175,7 @@ def chat(messages: list[dict[str, str]], *, temperature: float = 0.0, max_tokens
         "text": text,
         "model": payload.get("model") or model,
         "endpoint": base,
-        "provider": "nebius" if _has_nebius() else "nvidia",
+        "provider": _provider_label(),
         "request_id": payload.get("id") or payload.get("request_id"),
         "latency_ms": latency,
         "usage": {
@@ -173,9 +189,11 @@ def chat(messages: list[dict[str, str]], *, temperature: float = 0.0, max_tokens
 def eligible() -> dict[str, Any]:
     """Summary of eligibility state for the trace."""
     return {
-        "provider": "nebius" if _has_nebius() else "nvidia" if _legacy_key() else None,
-        "base_url": _base_url() if _has_nebius() else None,
+        "provider": _provider_label() if _has_orchestrator_key() else None,
+        "base_url": _base_url() if _has_orchestrator_key() else None,
+        "has_nebius": _has_nebius(),
         "has_nebius_key": bool(_nebius_key()),
         "has_legacy_key": bool(_legacy_key()),
         "model_from_env": bool(os.environ.get("ORCHESTRATOR_MODEL")),
+        "nebius_track_eligible": _has_nebius(),
     }

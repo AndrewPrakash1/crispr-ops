@@ -13,3 +13,4 @@ web/__pycache__/
 cpp/enumerate_cpu
 cuda/enumerate_gpu
 .DS_Store
+.env.local

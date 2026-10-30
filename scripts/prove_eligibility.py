@@ -21,10 +21,17 @@ from popoff import orchestrator, token_factory  # noqa: E402
 
 def main() -> int:
     env = token_factory.eligible()
-    if not env.get("has_nebius_key"):
-        print("Set NEBIUS_API_KEY and NEBIUS_BASE_URL (from the Nebius console).")
-        print("NVIDIA_API_KEY / integrate.api.nvidia.com is not eligible.")
+    if not env.get("has_nebius") and not env.get("has_legacy_key"):
+        print("Set NEBIUS_API_KEY+NEBIUS_BASE_URL (Nebius track) or NVIDIA_API_KEY+ORCHESTRATOR_URL.")
         return 1
+    if env.get("has_nebius"):
+        print("Nebius track path (Token Factory / Studio).")
+    else:
+        print(
+            "Dev orchestrator path via",
+            env.get("provider"),
+            "— official hackathon eligibility still requires Nebius Token Factory.",
+        )
 
     print("Listing models ...")
     listing = token_factory.list_models()
@@ -59,6 +66,7 @@ def main() -> int:
     )
 
     artifact = {
+        "nebius_track_eligible": env.get("nebius_track_eligible"),
         "listing": listing,
         "chat": {
             "model": chat_result.get("model"),
